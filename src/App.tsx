@@ -1,26 +1,78 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import { SignInPage } from './pages/sign-in/sign-in-page'
+import { useEffect, useState } from 'react'
+import { Header } from './components/header/header'
+import { Redirect, Route, Switch } from 'react-router'
+import { SignUpPage } from './pages/sign-up/sign-up-page'
+import { Container } from '@material-ui/core'
+import { auth } from './core/firebase/firebase'
+import { Preloader } from './utils/preloader/preloader'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [error, setError] = useState<any>(null)
+	const [user, setUser] = useState<any>(null)
+	const [isLoading, setIsLoading] = useState(false)
+
+	const setCurrentUser: any = (user: any) => {
+		setUser(user)
+	}
+	const setErrorMessage: any = (error: any) => {
+		setError(error)
+	}
+	useEffect(() => {
+		setIsLoading(true)
+		auth.onAuthStateChanged((user) => {
+			if (user) {
+				setUser({
+					uid: user.uid,
+					email: user.email,
+					photo: user.photoURL,
+				})
+				setIsLoading(false)
+			} else {
+				setUser(null)
+				setIsLoading(false)
+			}
+		})
+	}, [])
+	return (
+		<Container className="App">
+			<Header
+				user={user}
+				setCurrentUser={setCurrentUser}
+				setErrorMessage={setErrorMessage}
+			/>
+			{isLoading ? (
+				<Preloader />
+			) : (
+				<Container className="main">
+					{user === null ? (
+						<Switch>
+							<Route exact path="/signup">
+								<SignUpPage
+									error={error}
+									setCurrentUser={setCurrentUser}
+									setErrorMessage={setErrorMessage}
+								/>
+							</Route>
+							<Route exact path="/signin">
+								<SignInPage
+									error={error}
+									setCurrentUser={setCurrentUser}
+									setErrorMessage={setErrorMessage}
+								/>
+							</Route>
+							<Route path="*">
+								<Redirect to="/signin" />
+							</Route>
+						</Switch>
+					) : (
+						<Redirect to="/" />
+					)}
+				</Container>
+			)}
+		</Container>
+	)
 }
 
-export default App;
+export default App

@@ -1,0 +1,19 @@
+import { makeStyles } from '@material-ui/core'
+
+export const useStyles = makeStyles({
+	header: {
+		display: 'flex',
+		justifyContent: 'space-between',
+	},
+	info: {
+		display: 'flex',
+		alignItems: 'center',
+	},
+	avatar: {
+		marginLeft: '20px',
+	},
+	button: {
+		textDecoration: 'none',
+		marginLeft: '20px',
+	},
+})
