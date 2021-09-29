@@ -4,6 +4,7 @@ export const useStyles = makeStyles({
 	header: {
 		display: 'flex',
 		justifyContent: 'space-between',
+		backgroundColor: '#234',
 	},
 	info: {
 		display: 'flex',

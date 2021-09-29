@@ -2,49 +2,34 @@ import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { Button, Container, TextField, Typography } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import { SignUpPageStylesPropsType, useStyles } from './sign-up-page.styles'
-// import { Toast } from '../../utils/toast/toast'
-import {
-	createNewUserInDB,
-	getAuthDataFromEmailSignUp,
-} from '../../core/firebase/auth-api'
-import firebase from 'firebase'
-import {  SignUpPagePropsType } from '../../core/types/common-types'
+import { SignUpPagePropsType } from '../../core/types/common-types'
 import { Toast } from '../../utils/toast/toast'
-
-export const SignUpPage: React.FC<SignUpPagePropsType> = React.memo(({
-	error,
-	setCurrentUser,
+import { useDispatch, useSelector } from 'react-redux'
+import {
 	setErrorMessage,
-}) => {
+	signUpWithEmailAndPassword,
+} from '../../core/redux/auth/auth-actions'
+
+export const SignUpPage: React.FC<SignUpPagePropsType> = React.memo(() => {
 	const styles: SignUpPageStylesPropsType = useStyles()
+	const dispatch = useDispatch()
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [confirmPassword, setConfirmPassword] = useState('')
+	const error = useSelector((state: any) => state.auth.error)
 
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
 		if (password !== confirmPassword) {
-			setErrorMessage("Passwords don't match, try again!")
+			dispatch(setErrorMessage("Passwords don't match, try again!"))
 			return
 		}
 		if (password.includes(' ')) {
-			setErrorMessage("Password must be without spaces!")
+			dispatch(setErrorMessage('Password must be without spaces!'))
 			return
 		}
-	
-		try {
-			const { user }: firebase.auth.UserCredential =
-				await getAuthDataFromEmailSignUp(email, password)
-			const currentUser = {
-				uid: user!.uid,
-				email: user!.email,
-				photo: user!.photoURL,
-			}
-			createNewUserInDB(currentUser)
-			setCurrentUser(currentUser)
-		} catch (error: any) {
-			setErrorMessage(error.message)
-		}
+
+		dispatch(signUpWithEmailAndPassword(email, password))
 		setEmail('')
 		setPassword('')
 		setConfirmPassword('')
@@ -67,11 +52,7 @@ export const SignUpPage: React.FC<SignUpPagePropsType> = React.memo(({
 	}
 	return (
 		<Container className={styles.signUpBox}>
-			{error ? (
-				<Toast message={error} setErrorMessage={setErrorMessage} />
-			) : (
-				''
-			)}
+			{error ? <Toast /> : ''}
 			<Typography variant="h5">
 				Sign up with email and password
 			</Typography>
@@ -119,5 +100,4 @@ export const SignUpPage: React.FC<SignUpPagePropsType> = React.memo(({
 			</form>
 		</Container>
 	)
-}
-)
+})

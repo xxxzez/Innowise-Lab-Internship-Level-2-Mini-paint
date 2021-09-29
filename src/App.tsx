@@ -4,63 +4,57 @@ import { useEffect, useState } from 'react'
 import { Header } from './components/header/header'
 import { Redirect, Route, Switch } from 'react-router'
 import { SignUpPage } from './pages/sign-up/sign-up-page'
-import { Container } from '@material-ui/core'
+import { Container, Typography } from '@material-ui/core'
 import { auth } from './core/firebase/firebase'
 import { Preloader } from './utils/preloader/preloader'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCurrentUser } from './core/redux/auth/auth-actions'
 
 function App() {
-	const [error, setError] = useState<any>(null)
-	const [user, setUser] = useState<any>(null)
 	const [isLoading, setIsLoading] = useState(false)
+	const dispatch = useDispatch()
+	const user = useSelector((state: any) => state.auth.user)
 
-	const setCurrentUser: any = (user: any) => {
-		setUser(user)
-	}
-	const setErrorMessage: any = (error: any) => {
-		setError(error)
-	}
 	useEffect(() => {
 		setIsLoading(true)
 		auth.onAuthStateChanged((user) => {
 			if (user) {
-				setUser({
-					uid: user.uid,
-					email: user.email,
-					photo: user.photoURL,
-				})
+				dispatch(
+					setCurrentUser({
+						uid: user.uid,
+						email: user.email,
+						photo: user.photoURL,
+					})
+				)
 				setIsLoading(false)
 			} else {
-				setUser(null)
+				dispatch(setCurrentUser(null))
 				setIsLoading(false)
 			}
 		})
-	}, [])
+	}, [dispatch])
+
 	return (
 		<Container className="App">
-			<Header
-				user={user}
-				setCurrentUser={setCurrentUser}
-				setErrorMessage={setErrorMessage}
-			/>
+			<Header />
 			{isLoading ? (
 				<Preloader />
 			) : (
 				<Container className="main">
+					{user ? (
+						<Typography variant="h4">
+							Here is your paint editor
+						</Typography>
+					) : (
+						<Redirect to="/signin" />
+					)}
 					{user === null ? (
 						<Switch>
 							<Route exact path="/signup">
-								<SignUpPage
-									error={error}
-									setCurrentUser={setCurrentUser}
-									setErrorMessage={setErrorMessage}
-								/>
+								<SignUpPage />
 							</Route>
 							<Route exact path="/signin">
-								<SignInPage
-									error={error}
-									setCurrentUser={setCurrentUser}
-									setErrorMessage={setErrorMessage}
-								/>
+								<SignInPage />
 							</Route>
 							<Route path="*">
 								<Redirect to="/signin" />
