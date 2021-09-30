@@ -2,7 +2,6 @@ import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { Button, Container, TextField, Typography } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import { SignUpPageStylesPropsType, useStyles } from './sign-up-page.styles'
-import { SignUpPagePropsType } from '../../core/types/common-types'
 import { Toast } from '../../utils/toast/toast'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -10,7 +9,7 @@ import {
 	signUpWithEmailAndPassword,
 } from '../../core/redux/auth/auth-actions'
 
-export const SignUpPage: React.FC<SignUpPagePropsType> = React.memo(() => {
+export const SignUpPage: React.FC = React.memo(() => {
 	const styles: SignUpPageStylesPropsType = useStyles()
 	const dispatch = useDispatch()
 	const [email, setEmail] = useState('')

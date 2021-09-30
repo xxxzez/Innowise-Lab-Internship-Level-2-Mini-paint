@@ -1,6 +1,5 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { SignInPagePropsType } from '../../core/types/common-types'
 import {
 	Box,
 	Button,
@@ -16,7 +15,7 @@ import {
 	signInWithEmail,
 } from '../../core/redux/auth/auth-actions'
 
-export const SignInPage: React.FC<SignInPagePropsType> = React.memo(() => {
+export const SignInPage: React.FC = React.memo(() => {
 	const styles = useStyles()
 	const dispatch = useDispatch()
 	const error = useSelector((state: any) => state.auth.error)

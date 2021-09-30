@@ -4,11 +4,12 @@ import { useEffect, useState } from 'react'
 import { Header } from './components/header/header'
 import { Redirect, Route, Switch } from 'react-router'
 import { SignUpPage } from './pages/sign-up/sign-up-page'
-import { Container, Typography } from '@material-ui/core'
+import { Container } from '@material-ui/core'
 import { auth } from './core/firebase/firebase'
 import { Preloader } from './utils/preloader/preloader'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCurrentUser } from './core/redux/auth/auth-actions'
+import { Canvas } from './components/canvas/canvas'
 
 function App() {
 	const [isLoading, setIsLoading] = useState(false)
@@ -42,9 +43,12 @@ function App() {
 			) : (
 				<Container className="main">
 					{user ? (
-						<Typography variant="h4">
-							Here is your paint editor
-						</Typography>
+						<Switch>
+							<Route exact path="/">
+								{/* <FeedPage /> */}
+								<Canvas />
+							</Route>
+						</Switch>
 					) : (
 						<Redirect to="/signin" />
 					)}
