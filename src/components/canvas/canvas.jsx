@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import './canvas.styles.css'
 
-export const Canvas = (props) => {
+export const Canvas = () => {
 	const canvasRef = useRef()
-	// const [color, setColor] = useState('#000000')
+	const [color, setColor] = useState('#fff000')
+	const [lineWidth, setLineWidth] = useState(2)
 	const [context, setContext] = useState()
-	// const [instrumentName, setInstrumentName] = useState('')
+	const [instrument, setInstrument] = useState('')
 	const [mouseDown, setMouseDown] = useState(false)
 
 	useEffect(() => {
@@ -15,6 +16,8 @@ export const Canvas = (props) => {
 	}, [])
 
 	const draw = (x, y) => {
+		context.strokeStyle = color
+		context.lineWidth = lineWidth
 		context.lineTo(x, y)
 		context.stroke()
 	}
@@ -38,7 +41,28 @@ export const Canvas = (props) => {
 	}
 
 	return (
-		<div>
+		<div className="canvasContainer">
+			<div className="buttons">
+				<button onClick={() => setInstrument('Brush')}>Brush</button>
+				<button>Rectangle</button>
+				<button>Circle</button>
+				<button>Line</button>
+				<input
+					type="color"
+					value={color}
+					onChange={(event) => setColor(event.target.value)}
+				/>
+				<select name="Thickness" id="">
+					<option value={() => setLineWidth(1)}>1</option>
+					<option value={() => setLineWidth(2)}>2</option>
+					<option value={() => setLineWidth(4)}>4</option>
+					<option value={() => setLineWidth(8)}>8</option>
+					<option value={() => setLineWidth(16)}>16</option>
+				</select>
+
+				<button>undo</button>
+				<button>save</button>
+			</div>
 			<canvas
 				ref={canvasRef}
 				onMouseDown={onMouseDown}
