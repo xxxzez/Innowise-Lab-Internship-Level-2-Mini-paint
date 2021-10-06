@@ -8,6 +8,7 @@ export const FeedPage: React.FC = React.memo(() => {
 
 	return (
 		<Box className={styles.feed}>
+			Users images
 			<Image />
 		</Box>
 	)

@@ -10,6 +10,7 @@ import { Preloader } from './utils/preloader/preloader'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCurrentUser } from './core/redux/auth/auth-actions'
 import { Canvas } from './components/canvas/canvas'
+import { FeedPage } from './pages/feed/feed'
 
 function App() {
 	const [isLoading, setIsLoading] = useState(false)
@@ -45,7 +46,9 @@ function App() {
 					{user ? (
 						<Switch>
 							<Route exact path="/">
-								{/* <FeedPage /> */}
+								<FeedPage />
+							</Route>
+							<Route exact path="/editor">
 								<Canvas />
 							</Route>
 						</Switch>

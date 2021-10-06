@@ -5,19 +5,21 @@ import './canvas.styles.css'
 import CropLandscapeOutlined from '@material-ui/icons/CropLandscape'
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked'
 import RemoveIcon from '@material-ui/icons/Remove'
+import { storage } from '../../core/firebase/firebase'
+import { useSelector } from 'react-redux'
 
 export const Canvas = () => {
 	const canvasRef = useRef()
 	const subCanvasRef = useRef()
 	const wrapperRef = useRef()
 	const [color, setColor] = useState('#743DF5')
-	const [lineWidth, setLineWidth] = useState(1)
+	const [lineWidth, setLineWidth] = useState(2)
 	const [mouseDownX, setMouseDownX] = useState()
 	const [mouseDownY, setMouseDownY] = useState()
 	const [context, setContext] = useState()
 	const [subContext, setSubContext] = useState()
 	const [tool, setTool] = useState('pencil')
-
+	const user = useSelector((state) => state.auth.user)
 	useEffect(() => {
 		if (canvasRef.current && subCanvasRef.current) {
 			setContext(canvasRef.current.getContext('2d'))
@@ -38,9 +40,6 @@ export const Canvas = () => {
 			subCanvasRef.current.width,
 			subCanvasRef.current.height
 		)
-	}
-	const handleChangeThickness = (e) => {
-		setLineWidth(e.target.value)
 	}
 
 	const onMouseDown = (e) => {
@@ -116,6 +115,7 @@ export const Canvas = () => {
 			}
 		}
 	}
+
 	const onMouseUp = (e) => {
 		if (context && subContext) {
 			subContext.drawImage(canvasRef.current, 0, 0)
@@ -124,19 +124,49 @@ export const Canvas = () => {
 			setMouseDownY(null)
 		}
 	}
+
+	const saveImage = async () => {
+		const imageURL = subContext.canvas.toDataURL()
+		const date = Date.now()
+		const newImagePath = `images/${user.uid}/${date}.png`
+		await storage
+			.ref()
+			.child(newImagePath)
+			.putString(imageURL, 'data_url')
+			.then((snapshot) => {
+				console.log('Uploaded a data_url string!')
+			})
+		clearCanvas()
+	}
 	return (
 		<Box className="canvas-box">
 			<Box className="buttons">
-				<Button variant="outlined" onClick={() => setTool('pencil')}>
+				<Button
+					variant="contained"
+					color={tool === 'pencil' ? 'primary' : 'inherit'}
+					onClick={() => setTool('pencil')}
+				>
 					<BrushIcon />
 				</Button>
-				<Button variant="outlined" onClick={() => setTool('rectangle')}>
+				<Button
+					variant="contained"
+					color={tool === 'rectangle' ? 'primary' : 'inherit'}
+					onClick={() => setTool('rectangle')}
+				>
 					<CropLandscapeOutlined />
 				</Button>
-				<Button variant="outlined" onClick={() => setTool('circle')}>
+				<Button
+					color={tool === 'circle' ? 'primary' : 'inherit'}
+					variant="contained"
+					onClick={() => setTool('circle')}
+				>
 					<RadioButtonUncheckedIcon />
 				</Button>
-				<Button variant="outlined" onClick={() => setTool('line')}>
+				<Button
+					color={tool === 'line' ? 'primary' : 'inherit'}
+					variant="contained"
+					onClick={() => setTool('line')}
+				>
 					<RemoveIcon />
 				</Button>
 
@@ -157,11 +187,9 @@ export const Canvas = () => {
 					onChange={(event) => setColor(event.target.value)}
 				/>
 				<Select
-					// name="Thickness"
-					// label="thickness"
 					className="select"
 					value={lineWidth}
-					onChange={handleChangeThickness}
+					onChange={(e) => setLineWidth(e.target.value)}
 				>
 					<MenuItem value="1">1</MenuItem>
 					<MenuItem value="2">2</MenuItem>
@@ -174,10 +202,20 @@ export const Canvas = () => {
 					<MenuItem value="16">16</MenuItem>
 					<MenuItem value="20">20</MenuItem>
 				</Select>
-				<Button variant="outlined" onClick={clearCanvas}>
+				<Button
+					variant="contained"
+					color="secondary"
+					onClick={clearCanvas}
+				>
 					Clear
 				</Button>
-				<Button variant="outlined">save</Button>
+				<Button
+					color="secondary"
+					variant="contained"
+					onClick={saveImage}
+				>
+					save
+				</Button>
 			</Box>
 			<Paper className="canvasContainer" ref={wrapperRef} elevation={5}>
 				<canvas

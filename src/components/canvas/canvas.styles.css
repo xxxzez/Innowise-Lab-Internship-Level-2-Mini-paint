@@ -1,5 +1,5 @@
 .canvasContainer{
-    max-width: 600px;
+    width: 600px;
     height: 600px;
 }
 
@@ -13,9 +13,11 @@
     align-items: center;
     justify-content: flex-start;
 }
+
 .buttons > button, input{
     margin-right: 15px;
 }
+
 .select{
     margin-right: 15px;
 }
