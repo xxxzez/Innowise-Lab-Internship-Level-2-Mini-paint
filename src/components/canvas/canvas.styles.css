@@ -1,16 +1,21 @@
 .canvasContainer{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    max-width: 600px;
+    height: 600px;
+}
+
+.canvas{
+    position: absolute; 
 }
 
 .buttons{
     margin-bottom: 40px;
     display: flex; 
+    align-items: center;
+    justify-content: flex-start;
 }
-
-canvas{
-    border: 1px solid black;
-    background-color: rgb(255, 255, 255);
+.buttons > button, input{
+    margin-right: 15px;
+}
+.select{
+    margin-right: 15px;
 }

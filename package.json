@@ -1,6 +1,7 @@
 {
-  "name": "my-app",
+  "name": "innowise-paint",
   "version": "0.1.0",
+  "homepage": "http://xxxzez.github.io/Innowise-Lab-Internship-Level-2-Mini-paint",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.4.1",
@@ -17,6 +18,7 @@
     "@types/react-dom": "^17.0.0",
     "@types/react-redux": "^7.1.18",
     "firebase": "^8.9.1",
+    "material-ui-color": "^1.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.5",
@@ -34,7 +36,9 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "precommit": "lint-staged",
-    "eslint": "node_modules/.bin/eslint src/"
+    "eslint": "node_modules/.bin/eslint src/",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -58,6 +62,7 @@
     "@types/react-router-dom": "^5.3.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "gh-pages": "^3.2.3",
     "husky": "^7.0.2",
     "lint-staged": "^11.1.2",
     "prettier": "^2.4.1"
