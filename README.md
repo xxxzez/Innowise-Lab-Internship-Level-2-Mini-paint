@@ -1,46 +1,70 @@
-# Getting Started with Create React App
+# Innowise Paint
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+ Simple drawing app like Windows Paint. 
+![App example](src/assets/test.png)
+## Task description
 
-## Available Scripts
+Here you can read all task [requirements](https://docs.google.com/document/d/1feIA0eu0NkR4J2mCdCc8oPErbET--IlqAEoSpRo1KHA/edit).
 
-In the project directory, you can run:
+## Link to the app
 
-### `yarn start`
+You can follow this [link](https://xxxzez.github.io/Innowise-Lab-Internship-Level-2-Mini-paint) and see how this app looks like.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `yarn test`
+## Application stack
+- React (functional components with hooks)
+- Redux, Redux-Saga
+- Typescript
+- Firebase (Cloud Firestore)
+- Material-UI
+- Canvas
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Clone this [repository](https://github.com/xxxzez/Innowise-Lab-Internship-Level-2-Mini-paint) and run:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+npm install
+```
+or
+```bash
+git clone https://github.com/xxxzez/Innowise-Lab-Internship-Level-2-Mini-paint.git
 
-### `yarn eject`
+npm install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Usage
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```python
+# build a production version
+npm run build
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+# run a development version
+npm run start
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Firebase Structure
 
-## Learn More
+```bash
+└──users
+    |──userId        
+        ├── email             
+        ├── profilePhoto
+        ├── userId
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+└──images                  
+    ├──imageId
+        ├──date
+            ├──imageId
+            ├──imagePath
+            ├──imageURL
+            ├──userEmail
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+
+<!-- ## File Structure
+
+![Folders](src/assets/folders.png) -->

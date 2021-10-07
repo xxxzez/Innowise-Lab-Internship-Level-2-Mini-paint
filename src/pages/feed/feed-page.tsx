@@ -17,7 +17,6 @@ export const FeedPage: React.FC = React.memo(() => {
 		setIsLoading(false)
 	}, [])
 
-	console.log(images)
 	return (
 		<Box>
 			{isLoading ? (
