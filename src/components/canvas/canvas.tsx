@@ -157,6 +157,10 @@ export const Canvas = () => {
 	const handleBlur = () => {
 		setBlur( blur === 0 ? 10 : 0)
 	}
+	const amountOfWidthOption = []
+	for(let i = 1; i <101; i++){
+		amountOfWidthOption.push(i)
+	}
 	return (
 		<Box className="canvas-box">
 			<Box className="buttons">
@@ -212,16 +216,10 @@ export const Canvas = () => {
 					value={lineWidth}
 					onChange={(e: any) => setLineWidth(e.target.value)}
 				>
-					<MenuItem value="1">1</MenuItem>
-					<MenuItem value="2">2</MenuItem>
-					<MenuItem value="4">4</MenuItem>
-					<MenuItem value="6">6</MenuItem>
-					<MenuItem value="8">8</MenuItem>
-					<MenuItem value="10">10</MenuItem>
-					<MenuItem value="12">12</MenuItem>
-					<MenuItem value="14">14</MenuItem>
-					<MenuItem value="16">16</MenuItem>
-					<MenuItem value="20">20</MenuItem>
+					{
+					amountOfWidthOption.map(num => <MenuItem key={num} value={num}>{num}</MenuItem>)	
+					}
+				
 				</Select>
 				<Button
 					variant="contained"
