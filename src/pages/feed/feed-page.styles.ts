@@ -19,4 +19,7 @@ export const useStyles = makeStyles({
 		textDecoration: 'none',
 		color: 'white',
 	},
+	select: {
+		marginLeft: '20px',
+	},
 })
