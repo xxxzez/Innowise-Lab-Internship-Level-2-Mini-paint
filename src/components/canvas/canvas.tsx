@@ -12,11 +12,11 @@ import { createNewImageReferenceInDB } from '../../core/firebase/images-api'
 export const Canvas = () => {
 	const canvasRef = useRef<any>()
 	const subCanvasRef = useRef<any>()
-	const wrapperRef = useRef()
+	const wrapperRef = useRef<any>()
 	const [color, setColor] = useState('#743DF5')
-	const [lineWidth, setLineWidth] = useState(2)
-	const [mouseDownX, setMouseDownX] = useState()
-	const [mouseDownY, setMouseDownY] = useState()
+	const [lineWidth, setLineWidth] = useState<any>(2)
+	const [mouseDownX, setMouseDownX] = useState<any>()
+	const [mouseDownY, setMouseDownY] = useState<any>()
 	const [context, setContext] =	useState<any>()
 	const [subContext, setSubContext] = useState<any>()
 	const [tool, setTool] = useState('pencil')
@@ -208,14 +208,14 @@ export const Canvas = () => {
 			<Paper className="canvasContainer" ref={wrapperRef} elevation={5}>
 				<canvas
 					ref={subCanvasRef}
-					width={600}
+					width={800}
 					height={600}
 					className="canvas"
 				></canvas>
 				<canvas
 					ref={canvasRef}
 					className="canvas"
-					width={600}
+					width={800}
 					height={600}
 					onMouseDown={onMouseDown}
 					onMouseMove={onMouseMove}

@@ -13,7 +13,7 @@ export const FeedPage: React.FC = React.memo(() => {
 
 	useEffect(() => {
 		setIsLoading(true)
-		fetchAllImages().then((res) => setImages(res))
+		fetchAllImages().then((res) => setImages(res.reverse()))
 		setIsLoading(false)
 	}, [])
 
@@ -45,7 +45,7 @@ export const FeedPage: React.FC = React.memo(() => {
 						</Button>
 					</Box>
 					<Box>
-						{images ? (
+						{images && images.length > 0 ? (
 							images.map((image: any) => (
 								<Image image={image} key={image.imageId} />
 							))

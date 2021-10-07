@@ -8,6 +8,7 @@ export const useStyles = makeStyles({
 		alignItems: 'center',
 	},
 	buttons: {
+		alignSelf: 'start',
 		marginBottom: '40px',
 	},
 	button: {

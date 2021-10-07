@@ -7,10 +7,13 @@ export const useStyles = makeStyles({
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
+	buttons: {
+		alignSelf: 'start',
+		marginBottom: '40px',
+	},
 	button: {
 		textDecoration: 'none',
 		marginLeft: '20px',
-		marginBottom: '40px',
 	},
 	link: {
 		textDecoration: 'none',

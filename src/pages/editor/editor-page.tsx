@@ -7,7 +7,7 @@ export const EditorPage = () => {
 	const styles = useStyles()
 	return (
 		<Box className={styles.editor}>
-			<Box>
+			<Box className={styles.buttons}>
 				<Button
 					variant="contained"
 					color="secondary"
