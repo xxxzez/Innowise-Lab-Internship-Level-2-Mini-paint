@@ -17,7 +17,7 @@ export const Image: React.FC<any> = React.memo(({ image }) => {
 	const handleDeleteImage = async () => {
 		if (
 			user.email === image.userEmail ||
-			image.email === 'ZvwYR01vGeMatey81SaySnYxnwe2'
+			user.email === 'ZvwYR01vGeMatey81SaySnYxnwe2'
 		) {
 			await storage.ref().child(image.imagePath).delete()
 			await db.collection('images').doc(`${image.imageId}`).delete()
