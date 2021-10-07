@@ -7,6 +7,7 @@ import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked'
 import RemoveIcon from '@material-ui/icons/Remove'
 import { storage } from '../../core/firebase/firebase'
 import { useSelector } from 'react-redux'
+import { createNewImageReferenceInDB } from '../../core/firebase/images-api'
 
 export const Canvas = () => {
 	const canvasRef = useRef()
@@ -128,14 +129,13 @@ export const Canvas = () => {
 	const saveImage = async () => {
 		const imageURL = subContext.canvas.toDataURL()
 		const date = Date.now()
-		const newImagePath = `images/${user.uid}/${date}.png`
-		await storage
-			.ref()
-			.child(newImagePath)
-			.putString(imageURL, 'data_url')
-			.then((snapshot) => {
-				console.log('Uploaded a data_url string!')
-			})
+		const imagePath = `images/${user.uid}/${date}.png`
+		await storage.ref().child(imagePath).putString(imageURL, 'data_url')
+
+		const imageDatabaseURL = await storage
+			.ref(`images/${user.uid}/${date}.png`)
+			.getDownloadURL()
+		createNewImageReferenceInDB(user, imageDatabaseURL, date, imagePath)
 		clearCanvas()
 	}
 	return (
@@ -169,18 +169,6 @@ export const Canvas = () => {
 				>
 					<RemoveIcon />
 				</Button>
-
-				{/* <ColorPicker
-					defaultValue={color}
-					onChange={(event) => setColor(event.target.value)}
-					// hideTextfield
-				/> */}
-				{/* <ColorPalette
-					name="color"
-					defaultValue="#000"
-					// value={this.state.color} - for controlled component
-					onChange={(color) => console.log(color)}
-				/> */}
 				<input
 					type="color"
 					value={color}
