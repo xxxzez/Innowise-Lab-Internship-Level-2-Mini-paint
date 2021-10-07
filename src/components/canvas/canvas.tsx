@@ -1,5 +1,5 @@
 import { Box, Button, MenuItem, Paper, Select } from '@material-ui/core'
-import { useEffect, useRef, useState } from 'react'
+import {  useEffect, useRef, useState } from 'react'
 import BrushIcon from '@material-ui/icons/Brush'
 import './canvas.styles.css'
 import CropLandscapeOutlined from '@material-ui/icons/CropLandscape'
@@ -10,17 +10,17 @@ import { useSelector } from 'react-redux'
 import { createNewImageReferenceInDB } from '../../core/firebase/images-api'
 
 export const Canvas = () => {
-	const canvasRef = useRef()
-	const subCanvasRef = useRef()
+	const canvasRef = useRef<any>()
+	const subCanvasRef = useRef<any>()
 	const wrapperRef = useRef()
 	const [color, setColor] = useState('#743DF5')
 	const [lineWidth, setLineWidth] = useState(2)
 	const [mouseDownX, setMouseDownX] = useState()
 	const [mouseDownY, setMouseDownY] = useState()
-	const [context, setContext] = useState()
-	const [subContext, setSubContext] = useState()
+	const [context, setContext] =	useState<any>()
+	const [subContext, setSubContext] = useState<any>()
 	const [tool, setTool] = useState('pencil')
-	const user = useSelector((state) => state.auth.user)
+	const user = useSelector((state: any) => state.auth.user)
 	useEffect(() => {
 		if (canvasRef.current && subCanvasRef.current) {
 			setContext(canvasRef.current.getContext('2d'))
@@ -43,12 +43,12 @@ export const Canvas = () => {
 		)
 	}
 
-	const onMouseDown = (e) => {
+	const onMouseDown = (e: any) => {
 		setMouseDownX(e.pageX - e.target.offsetLeft)
 		setMouseDownY(e.pageY - e.target.offsetTop)
 	}
 
-	const onMouseMove = (e) => {
+	const onMouseMove = (e: any) => {
 		if (
 			context &&
 			mouseDownX &&
@@ -117,7 +117,7 @@ export const Canvas = () => {
 		}
 	}
 
-	const onMouseUp = (e) => {
+	const onMouseUp = (e: any) => {
 		if (context && subContext) {
 			subContext.drawImage(canvasRef.current, 0, 0)
 			context.beginPath()
@@ -127,7 +127,7 @@ export const Canvas = () => {
 	}
 
 	const saveImage = async () => {
-		const imageURL = subContext.canvas.toDataURL()
+		const imageURL = subContext!.canvas?.toDataURL()
 		const date = Date.now()
 		const imagePath = `images/${user.uid}/${date}.png`
 		await storage.ref().child(imagePath).putString(imageURL, 'data_url')
@@ -177,7 +177,7 @@ export const Canvas = () => {
 				<Select
 					className="select"
 					value={lineWidth}
-					onChange={(e) => setLineWidth(e.target.value)}
+					onChange={(e: any) => setLineWidth(e.target.value)}
 				>
 					<MenuItem value="1">1</MenuItem>
 					<MenuItem value="2">2</MenuItem>
