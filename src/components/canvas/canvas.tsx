@@ -108,8 +108,8 @@ export const Canvas = () => {
 					context.beginPath()
 					context.moveTo(mouseDownX, mouseDownY)
 					context.lineTo(
-						e.clientX - wrapperRef.current.offsetLeft,
-						e.clientY - wrapperRef.current.offsetTop
+						e.pageX - wrapperRef.current.offsetLeft,
+						e.pageY - wrapperRef.current.offsetTop
 					)
 					context.stroke()
 					break
