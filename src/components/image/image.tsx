@@ -15,14 +15,17 @@ export const Image: React.FC<any> = React.memo(({ image }) => {
 	const dispatch = useDispatch()
 
 	const handleDeleteImage = async () => {
-		if (user.email === image.userEmail) {
+		if (
+			user.email === image.userEmail ||
+			image.email === 'ZvwYR01vGeMatey81SaySnYxnwe2'
+		) {
 			await storage.ref().child(image.imagePath).delete()
 			await db.collection('images').doc(`${image.imageId}`).delete()
 			dispatch(deleteImage(image.imageId))
 		} else {
 			dispatch(
 				setErrorMessage(
-					'You are not allowed to delete the picture that is now yours'
+					'You are not allowed to delete the picture that is not yours'
 				)
 			)
 		}
