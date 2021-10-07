@@ -23,32 +23,30 @@ export const Header: React.FC<HeaderPropsType> = React.memo(() => {
 		<AppBar position="static">
 			<Toolbar className={styles.header}>
 				<Typography variant="h5">Paint</Typography>
-				<Box>
-					{user ? (
-						<Box className={styles.info}>
-							<Typography variant="body2">
-								{user.email}
-							</Typography>
-							<Avatar
-								alt={'User profile photo'}
-								src={user.photo ? user.photo : ''}
-								className={styles.avatar}
-							/>
 
-							<Button
-								variant="contained"
-								color="secondary"
-								className={styles.button}
-								onClick={onSignOut}
-							>
-								Sign out
-							</Button>
-						</Box>
-					) : (
-						''
-					)}
-				</Box>
+				{user ? (
+					<Box className={styles.info}>
+						<Typography variant="body2">{user.email}</Typography>
+						<Avatar
+							alt={'User profile photo'}
+							src={user.photo ? user.photo : ''}
+							className={styles.avatar}
+						/>
+
+						<Button
+							variant="contained"
+							color="secondary"
+							className={styles.button}
+							onClick={onSignOut}
+						>
+							Sign out
+						</Button>
+					</Box>
+				) : (
+					''
+				)}
 			</Toolbar>
 		</AppBar>
 	)
 })
+ 

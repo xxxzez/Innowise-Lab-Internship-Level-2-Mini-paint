@@ -7,4 +7,15 @@ export const useStyles = makeStyles({
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
+	buttons: {
+		marginBottom: '40px',
+	},
+	button: {
+		textDecoration: 'none',
+		marginLeft: '20px',
+	},
+	link: {
+		textDecoration: 'none',
+		color: 'white',
+	},
 })

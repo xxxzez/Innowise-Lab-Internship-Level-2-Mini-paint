@@ -9,8 +9,8 @@ import { auth } from './core/firebase/firebase'
 import { Preloader } from './utils/preloader/preloader'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCurrentUser } from './core/redux/auth/auth-actions'
-import { Canvas } from './components/canvas/canvas'
-import { FeedPage } from './pages/feed/feed'
+import { FeedPage } from './pages/feed/feed-page'
+import { EditorPage } from './pages/editor/editor-page'
 
 function App() {
 	const [isLoading, setIsLoading] = useState(false)
@@ -49,7 +49,7 @@ function App() {
 								<FeedPage />
 							</Route>
 							<Route exact path="/editor">
-								<Canvas />
+								<EditorPage />
 							</Route>
 						</Switch>
 					) : (
