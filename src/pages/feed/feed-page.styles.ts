@@ -17,7 +17,6 @@ export const useStyles = makeStyles({
 	},
 	link: {
 		textDecoration: 'none',
-		color: 'white',
 	},
 	select: {
 		marginLeft: '20px',

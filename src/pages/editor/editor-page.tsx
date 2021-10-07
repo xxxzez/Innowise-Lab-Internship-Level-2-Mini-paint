@@ -9,21 +9,21 @@ export const EditorPage = () => {
 		<Box className={styles.editor}>
 			<Box className={styles.buttons}>
 				<Button
-					variant="contained"
-					color="secondary"
-					className={styles.button}
-				>
-					<NavLink className={styles.link} to="/editor">
-						Editor
-					</NavLink>
-				</Button>
-				<Button
-					variant="contained"
-					color="secondary"
+					variant="outlined"
+					color="primary"
 					className={styles.button}
 				>
 					<NavLink className={styles.link} to="/">
 						Feed
+					</NavLink>
+				</Button>
+				<Button
+					variant="outlined"
+					color="primary"
+					className={styles.button}
+				>
+					<NavLink className={styles.link} to="/editor">
+						Editor
 					</NavLink>
 				</Button>
 			</Box>

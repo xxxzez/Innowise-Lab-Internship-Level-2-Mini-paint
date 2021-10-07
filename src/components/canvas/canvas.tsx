@@ -15,6 +15,8 @@ export const Canvas = () => {
 	const subCanvasRef = useRef<any>()
 	const wrapperRef = useRef<any>()
 	const [color, setColor] = useState('#743DF5')
+	const [dash, setDash] = useState(false)
+	const [blur, setBlur] = useState(0)
 	const [lineWidth, setLineWidth] = useState<any>(2)
 	const [mouseDownX, setMouseDownX] = useState<any>()
 	const [mouseDownY, setMouseDownY] = useState<any>()
@@ -60,6 +62,16 @@ export const Canvas = () => {
 		) {
 			context.strokeStyle = color
 			context.lineWidth = lineWidth
+			context.lineCap = 'round'
+			context.shadowColor = color
+			context.shadowBlur = blur;
+	
+			if(dash){
+				context.setLineDash([5, 20])
+			} else {
+				context.setLineDash([])
+			}
+		
 			context.clearRect(
 				0,
 				0,
@@ -139,6 +151,12 @@ export const Canvas = () => {
 		createNewImageReferenceInDB(user, imageDatabaseURL, date, imagePath)
 		history.push('/')
 	}
+	const handleDash = () => {
+		setDash( dash === false ? true : false)
+	}
+	const handleBlur = () => {
+		setBlur( blur === 0 ? 10 : 0)
+	}
 	return (
 		<Box className="canvas-box">
 			<Box className="buttons">
@@ -169,6 +187,20 @@ export const Canvas = () => {
 					onClick={() => setTool('line')}
 				>
 					<RemoveIcon />
+				</Button>
+				<Button
+					color={dash === true ? 'primary' : 'inherit'}
+					variant="contained"
+					onClick={handleDash}
+				>
+					Dash
+				</Button>
+				<Button
+					color={blur > 0 ? 'primary' : 'inherit'}
+					variant="contained"
+					onClick={handleBlur}
+				>
+					Blur
 				</Button>
 				<input
 					type="color"
