@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Innowise-Lab-Internship-Level-2-Mini-paint/static/css/main.a853eae4.chunk.css",
-    "main.js": "/Innowise-Lab-Internship-Level-2-Mini-paint/static/js/main.c8c3ba8e.chunk.js",
-    "main.js.map": "/Innowise-Lab-Internship-Level-2-Mini-paint/static/js/main.c8c3ba8e.chunk.js.map",
+    "main.js": "/Innowise-Lab-Internship-Level-2-Mini-paint/static/js/main.26a87dbe.chunk.js",
+    "main.js.map": "/Innowise-Lab-Internship-Level-2-Mini-paint/static/js/main.26a87dbe.chunk.js.map",
     "runtime-main.js": "/Innowise-Lab-Internship-Level-2-Mini-paint/static/js/runtime-main.323da291.js",
     "runtime-main.js.map": "/Innowise-Lab-Internship-Level-2-Mini-paint/static/js/runtime-main.323da291.js.map",
     "static/js/2.c32f6dcf.chunk.js": "/Innowise-Lab-Internship-Level-2-Mini-paint/static/js/2.c32f6dcf.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.323da291.js",
     "static/js/2.c32f6dcf.chunk.js",
     "static/css/main.a853eae4.chunk.css",
-    "static/js/main.c8c3ba8e.chunk.js"
+    "static/js/main.26a87dbe.chunk.js"
   ]
 }
