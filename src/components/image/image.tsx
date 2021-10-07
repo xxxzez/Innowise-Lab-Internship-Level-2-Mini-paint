@@ -4,6 +4,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { db, storage } from '../../core/firebase/firebase'
 import { setErrorMessage } from '../../core/redux/auth/auth-actions'
+import { deleteImage } from '../../core/redux/images/images-actions'
 import { Toast } from '../../utils/toast/toast'
 import { useStyles } from './image.styles'
 
@@ -13,10 +14,11 @@ export const Image: React.FC<any> = React.memo(({ image }) => {
 	const error = useSelector((state: any) => state.auth.error)
 	const dispatch = useDispatch()
 
-	const deleteImage = async () => {
+	const handleDeleteImage = async () => {
 		if (user.email === image.userEmail) {
 			await storage.ref().child(image.imagePath).delete()
 			await db.collection('images').doc(`${image.imageId}`).delete()
+			dispatch(deleteImage(image.imageId))
 		} else {
 			dispatch(
 				setErrorMessage(
@@ -30,7 +32,7 @@ export const Image: React.FC<any> = React.memo(({ image }) => {
 			{error ? <Toast /> : ''}
 			<Container className={styles.taskItem}>
 				<Container className={styles.buttons}>
-					<IconButton onClick={deleteImage}>
+					<IconButton onClick={handleDeleteImage}>
 						<DeleteIcon />
 					</IconButton>
 				</Container>

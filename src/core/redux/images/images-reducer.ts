@@ -25,7 +25,7 @@ export const imageReducer = (state = initialState, action: any) => {
 		case ImagesActionTypes.DELETE_IMAGE:
 			return {
 				...state,
-				// images: images.filter(),
+				images: state.images.filter(image => image.imageId !== action.payload)
 			}
 
 		default:

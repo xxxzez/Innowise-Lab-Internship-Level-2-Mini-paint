@@ -8,6 +8,7 @@ import RemoveIcon from '@material-ui/icons/Remove'
 import { storage } from '../../core/firebase/firebase'
 import { useSelector } from 'react-redux'
 import { createNewImageReferenceInDB } from '../../core/firebase/images-api'
+import { useHistory } from 'react-router'
 
 export const Canvas = () => {
 	const canvasRef = useRef<any>()
@@ -21,6 +22,7 @@ export const Canvas = () => {
 	const [subContext, setSubContext] = useState<any>()
 	const [tool, setTool] = useState('pencil')
 	const user = useSelector((state: any) => state.auth.user)
+	const history = useHistory()
 	useEffect(() => {
 		if (canvasRef.current && subCanvasRef.current) {
 			setContext(canvasRef.current.getContext('2d'))
@@ -131,12 +133,11 @@ export const Canvas = () => {
 		const date = Date.now()
 		const imagePath = `images/${user.uid}/${date}.png`
 		await storage.ref().child(imagePath).putString(imageURL, 'data_url')
-
 		const imageDatabaseURL = await storage
 			.ref(`images/${user.uid}/${date}.png`)
 			.getDownloadURL()
 		createNewImageReferenceInDB(user, imageDatabaseURL, date, imagePath)
-		clearCanvas()
+		history.push('/')
 	}
 	return (
 		<Box className="canvas-box">

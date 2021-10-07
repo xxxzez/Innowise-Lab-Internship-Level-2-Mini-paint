@@ -14,7 +14,6 @@ export const FeedPage: React.FC = React.memo(() => {
 	const [artist, setArtist] = useState<any>('All artists')
 	const dispatch = useDispatch()
 	const images = useSelector((state: any) => state.images.images)
-	// const user = useSelector((state: any) => state.auth.user)
 	const usersArray: any = ['All artists']
 	images.forEach((image: any) => {
 		if (!usersArray.includes(image.userEmail)) {
