@@ -22,7 +22,7 @@ export const imageReducer = (state = initialState, action: any) => {
 				...state,
 				images: action.payload,
 			}
-		case ImagesActionTypes.DELETE_IMAGE:
+		case ImagesActionTypes.REMOVE_IMAGE:
 			return {
 				...state,
 				images: state.images.filter(image => image.imageId !== action.payload)

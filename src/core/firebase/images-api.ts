@@ -1,15 +1,9 @@
 import { UserType } from '../types/user-types'
-import { db } from './firebase'
+import { db, storage } from './firebase'
 
 export async function fetchAllImages() {
 	const imagesRef = db.collection('images')
-	const imagesArray: any = []
-	await imagesRef
-		.get()
-		.then((querySnapshot) =>
-			querySnapshot.forEach((doc) => imagesArray.push(doc.data()))
-		)
-	return imagesArray
+	return await imagesRef.get()
 }
 
 export async function createNewImageReferenceInDB(
@@ -25,4 +19,12 @@ export async function createNewImageReferenceInDB(
 		imageId,
 		imagePath,
 	})
+}
+
+export async function deleteImageInStorage(imagePath: any) {
+	return await storage.ref().child(imagePath).delete()
+}
+
+export async function deleteImageInDatabase(imageId: any) {
+	return await db.collection('images').doc(`${imageId}`).delete()
 }

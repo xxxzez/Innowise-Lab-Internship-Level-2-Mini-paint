@@ -2,7 +2,6 @@ import { Container, IconButton, Paper, Typography } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { db, storage } from '../../core/firebase/firebase'
 import { setErrorMessage } from '../../core/redux/auth/auth-actions'
 import { deleteImage } from '../../core/redux/images/images-actions'
 import { Toast } from '../../utils/toast/toast'
@@ -19,9 +18,7 @@ export const Image: React.FC<any> = React.memo(({ image }) => {
 			user.email === 'matvei.bohush@innowise-group.com' ||
 			user.email === image.userEmail
 		) {
-			await storage.ref().child(image.imagePath).delete()
-			await db.collection('images').doc(`${image.imageId}`).delete()
-			dispatch(deleteImage(image.imageId))
+			dispatch(deleteImage(image.imagePath, image.imageId))
 		} else {
 			dispatch(
 				setErrorMessage(

@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { Image } from '../../components/image/image'
-import { fetchAllImages } from '../../core/firebase/images-api'
-import { setImages } from '../../core/redux/images/images-actions'
+import { fetchImages } from '../../core/redux/images/images-actions'
 import { Preloader } from '../../utils/preloader/preloader'
+import { Toast } from '../../utils/toast/toast'
 import { useStyles } from './feed-page.styles'
 
 export const FeedPage: React.FC = React.memo(() => {
@@ -14,6 +14,14 @@ export const FeedPage: React.FC = React.memo(() => {
 	const [artist, setArtist] = useState<any>('All artists')
 	const dispatch = useDispatch()
 	const images = useSelector((state: any) => state.images.images)
+	const error = useSelector((state: any) => state.auth.error)
+
+	useEffect(() => {
+		setIsLoading(true)
+		dispatch(fetchImages())
+		setIsLoading(false)
+	}, [dispatch])
+
 	const usersArray: any = ['All artists']
 	images.forEach((image: any) => {
 		if (!usersArray.includes(image.userEmail)) {
@@ -25,18 +33,13 @@ export const FeedPage: React.FC = React.memo(() => {
 			? images
 			: images.filter((image: any) => image.userEmail === artist)
 
-	useEffect(() => {
-		setIsLoading(true)
-		fetchAllImages().then((res) => dispatch(setImages(res.reverse())))
-		setIsLoading(false)
-	}, [dispatch])
-
 	return (
 		<Box>
 			{isLoading ? (
 				<Preloader />
 			) : (
 				<Box className={styles.feed}>
+					{error ? <Toast /> : ''}
 					<Box className={styles.buttons}>
 						<Button
 							variant="outlined"
