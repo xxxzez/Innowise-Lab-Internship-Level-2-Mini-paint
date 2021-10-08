@@ -5,10 +5,10 @@ import './canvas.styles.css'
 import CropLandscapeOutlined from '@material-ui/icons/CropLandscape'
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked'
 import RemoveIcon from '@material-ui/icons/Remove'
-import { storage } from '../../core/firebase/firebase'
-import { useSelector } from 'react-redux'
-import { createNewImageReferenceInDB } from '../../core/firebase/images-api'
+import { useDispatch, useSelector } from 'react-redux'
+import {  getNewImageURL } from '../../core/firebase/images-api'
 import { useHistory } from 'react-router'
+import { createImageInstanceInDB, uploadImage } from '../../core/redux/images/images-actions'
 
 export const Canvas = () => {
 	const canvasRef = useRef<any>()
@@ -25,6 +25,7 @@ export const Canvas = () => {
 	const [tool, setTool] = useState('pencil')
 	const user = useSelector((state: any) => state.auth.user)
 	const history = useHistory()
+	const dispatch = useDispatch()
 	useEffect(() => {
 		if (canvasRef.current && subCanvasRef.current) {
 			setContext(canvasRef.current.getContext('2d'))
@@ -141,16 +142,17 @@ export const Canvas = () => {
 	}
 
 	const saveImage = async () => {
-		const imageURL = subContext!.canvas?.toDataURL()
 		const date = Date.now()
+		const imageURL = subContext!.canvas?.toDataURL()
 		const imagePath = `images/${user.uid}/${date}.png`
-		await storage.ref().child(imagePath).putString(imageURL, 'data_url')
-		const imageDatabaseURL = await storage
-			.ref(`images/${user.uid}/${date}.png`)
-			.getDownloadURL()
-		createNewImageReferenceInDB(user, imageDatabaseURL, date, imagePath)
+		dispatch(uploadImage(imagePath, imageURL))
+		const imageDatabaseURL = await getNewImageURL(user.uid, date)
+		dispatch(createImageInstanceInDB(user, imageDatabaseURL, date, imagePath))
 		history.push('/')
 	}
+
+
+
 	const handleDash = () => {
 		setDash( dash === false ? true : false)
 	}

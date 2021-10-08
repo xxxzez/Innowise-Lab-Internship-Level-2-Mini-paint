@@ -4,9 +4,11 @@ import { takeEvery, call, put } from '@redux-saga/core/effects'
 import { all } from 'redux-saga/effects'
 import { setErrorMessage } from '../redux/auth/auth-actions'
 import {
+	createNewImageReferenceInDB,
 	deleteImageInDatabase,
 	deleteImageInStorage,
 	fetchAllImages,
+	loadImageToStorage,
 } from '../firebase/images-api'
 
 //workers
@@ -29,6 +31,38 @@ function* workerDeleteImage({ imagePath, imageId }: any) {
 		yield put(setErrorMessage(error.message))
 	}
 }
+function* workerSaveImage({ imagePath, imageURL }: any) {
+	try {
+		yield call(loadImageToStorage, imagePath, imageURL)
+	} catch (error: any) {
+		yield put(setErrorMessage(error.message))
+	}
+}
+function* workerUploadImage({ userId, date }: any) {
+	try {
+		yield call(loadImageToStorage, userId, date)
+	} catch (error: any) {
+		yield put(setErrorMessage(error.message))
+	}
+}
+function* workerCreateImageInstance({
+	user,
+	imageURL,
+	imageId,
+	imagePath,
+}: any) {
+	try {
+		yield call(
+			createNewImageReferenceInDB,
+			user,
+			imageURL,
+			imageId,
+			imagePath
+		)
+	} catch (error: any) {
+		yield put(setErrorMessage(error.message))
+	}
+}
 
 //watchers
 function* watchFetchImages() {
@@ -37,7 +71,25 @@ function* watchFetchImages() {
 function* watchDeleteImage() {
 	yield takeEvery(ImagesActionTypes.DELETE_IMAGE, workerDeleteImage)
 }
+function* watchSaveImage() {
+	yield takeEvery(ImagesActionTypes.SAVE_IMAGE, workerSaveImage)
+}
+function* watchUploadImage() {
+	yield takeEvery(ImagesActionTypes.UPLOAD_IMAGE, workerUploadImage)
+}
+function* watchCreateImageInstance() {
+	yield takeEvery(
+		ImagesActionTypes.CREATE_IMAGE_INSTANCE_IN_DATABASE,
+		workerCreateImageInstance
+	)
+}
 
 export default function* imagesSaga() {
-	yield all([watchFetchImages(), watchDeleteImage()])
+	yield all([
+		watchFetchImages(),
+		watchDeleteImage(),
+		watchSaveImage(),
+		watchUploadImage(),
+		watchCreateImageInstance(),
+	])
 }

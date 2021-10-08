@@ -28,3 +28,11 @@ export async function deleteImageInStorage(imagePath: any) {
 export async function deleteImageInDatabase(imageId: any) {
 	return await db.collection('images').doc(`${imageId}`).delete()
 }
+
+export async function loadImageToStorage(imagePath: string, imageURL: string) {
+	await storage.ref().child(imagePath).putString(imageURL, 'data_url')
+}
+
+export async function getNewImageURL(userId: string, date: number) {
+	return await storage.ref(`images/${userId}/${date}.png`).getDownloadURL()
+}
