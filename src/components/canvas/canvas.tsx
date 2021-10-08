@@ -6,9 +6,9 @@ import CropLandscapeOutlined from '@material-ui/icons/CropLandscape'
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked'
 import RemoveIcon from '@material-ui/icons/Remove'
 import { useDispatch, useSelector } from 'react-redux'
-import {  getNewImageURL } from '../../core/firebase/images-api'
 import { useHistory } from 'react-router'
 import { createImageInstanceInDB, uploadImage } from '../../core/redux/images/images-actions'
+import { storage } from '../../core/firebase/firebase'
 
 export const Canvas = () => {
 	const canvasRef = useRef<any>()
@@ -145,13 +145,13 @@ export const Canvas = () => {
 		const date = Date.now()
 		const imageURL = subContext!.canvas?.toDataURL()
 		const imagePath = `images/${user.uid}/${date}.png`
-		dispatch(uploadImage(imagePath, imageURL))
-		const imageDatabaseURL = await getNewImageURL(user.uid, date)
+		await storage.ref().child(imagePath).putString(imageURL, 'data_url')
+		const imageDatabaseURL = await storage
+			.ref(`images/${user.uid}/${date}.png`)
+			.getDownloadURL()
 		dispatch(createImageInstanceInDB(user, imageDatabaseURL, date, imagePath))
 		history.push('/')
 	}
-
-
 
 	const handleDash = () => {
 		setDash( dash === false ? true : false)

@@ -30,7 +30,7 @@ export async function deleteImageInDatabase(imageId: any) {
 }
 
 export async function loadImageToStorage(imagePath: string, imageURL: string) {
-	await storage.ref().child(imagePath).putString(imageURL, 'data_url')
+	return await storage.ref().child(imagePath).putString(imageURL, 'data_url')
 }
 
 export async function getNewImageURL(userId: string, date: number) {

@@ -31,20 +31,15 @@ function* workerDeleteImage({ imagePath, imageId }: any) {
 		yield put(setErrorMessage(error.message))
 	}
 }
-function* workerSaveImage({ imagePath, imageURL }: any) {
+
+function* workerUploadImage({ imagePath, imageURL }: any) {
 	try {
 		yield call(loadImageToStorage, imagePath, imageURL)
 	} catch (error: any) {
 		yield put(setErrorMessage(error.message))
 	}
 }
-function* workerUploadImage({ userId, date }: any) {
-	try {
-		yield call(loadImageToStorage, userId, date)
-	} catch (error: any) {
-		yield put(setErrorMessage(error.message))
-	}
-}
+
 function* workerCreateImageInstance({
 	user,
 	imageURL,
@@ -71,9 +66,6 @@ function* watchFetchImages() {
 function* watchDeleteImage() {
 	yield takeEvery(ImagesActionTypes.DELETE_IMAGE, workerDeleteImage)
 }
-function* watchSaveImage() {
-	yield takeEvery(ImagesActionTypes.SAVE_IMAGE, workerSaveImage)
-}
 function* watchUploadImage() {
 	yield takeEvery(ImagesActionTypes.UPLOAD_IMAGE, workerUploadImage)
 }
@@ -88,7 +80,6 @@ export default function* imagesSaga() {
 	yield all([
 		watchFetchImages(),
 		watchDeleteImage(),
-		watchSaveImage(),
 		watchUploadImage(),
 		watchCreateImageInstance(),
 	])
