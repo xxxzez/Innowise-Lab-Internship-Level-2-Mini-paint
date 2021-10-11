@@ -1,5 +1,5 @@
 import { Box, Button, MenuItem, Paper, Select } from '@material-ui/core'
-import {  MouseEvent, useEffect, useRef, useState } from 'react'
+import React, {  MouseEvent, useEffect, useRef, useState } from 'react'
 import BrushIcon from '@material-ui/icons/Brush'
 import './canvas.styles.ts'
 import CropLandscapeOutlined from '@material-ui/icons/CropLandscape'
@@ -12,7 +12,7 @@ import { storage } from '../../core/firebase/firebase'
 import { MouseDownType, RootStateType } from '../../core/types/common-types'
 import { useStyles } from './canvas.styles'
 
-export const Canvas = () => {
+export const Canvas = React.memo(() => {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null)
 	const subCanvasRef = useRef<HTMLCanvasElement | null>(null)
 	const wrapperRef = useRef<HTMLDivElement | null>(null)
@@ -271,4 +271,4 @@ export const Canvas = () => {
 			</Paper>
 		</Box>
 	)
-}
+})

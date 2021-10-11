@@ -3,11 +3,11 @@ import MuiAlert from '@material-ui/lab/Alert'
 import { Box } from '@material-ui/core'
 import { useStyles } from './toast.style'
 import { RootStateType } from '../../core/types/common-types'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setErrorMessage } from '../../core/redux/auth/auth-actions'
 
-export const Toast: React.FC = () => {
+export const Toast: React.FC = React.memo(() => {
 	const message = useSelector((state: RootStateType) => state.auth.error)
 	const dispatch = useDispatch()
 	const styles = useStyles()
@@ -34,4 +34,4 @@ export const Toast: React.FC = () => {
 			</Snackbar>
 		</Box>
 	)
-}
+})

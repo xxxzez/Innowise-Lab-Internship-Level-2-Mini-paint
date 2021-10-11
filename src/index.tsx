@@ -8,13 +8,13 @@ import { store } from './core/redux/store'
 import { HashRouter } from 'react-router-dom'
 
 ReactDOM.render(
-	<React.StrictMode>
+	<React.Fragment>
 		<Provider store={store}>
 			<HashRouter>
 				<App />
 			</HashRouter>
 		</Provider>
-	</React.StrictMode>,
+	</React.Fragment>,
 	document.getElementById('root')
 )
 
