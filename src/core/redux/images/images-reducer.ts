@@ -20,7 +20,6 @@ export const imageReducer = (state = initialState, action: AnyAction) => {
 					(image) => image.imageId !== action.payload
 				),
 			}
-
 		default:
 			return state
 	}

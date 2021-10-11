@@ -1,9 +1,4 @@
 import { makeStyles } from '@material-ui/core'
-import { ClassNameMap } from '@material-ui/styles'
-
-export type SignUpPageStylesPropsType = ClassNameMap<
-	'signUpBox' | 'form' | 'input' | 'buttons' | 'link'
->
 
 export const useStyles = makeStyles({
 	signUpBox: {

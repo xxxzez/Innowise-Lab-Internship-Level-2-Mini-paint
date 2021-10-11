@@ -40,3 +40,5 @@ export type UploadImageWorkerType = {
     imagePath: string
     imageURL: string
 }
+
+export type MouseDownType = undefined | null  | number

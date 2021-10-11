@@ -1,8 +1,4 @@
-import { ClassNameMap, makeStyles } from '@material-ui/styles'
-
-export type TaskStylesPropType = ClassNameMap<
-	'root' | 'taskItem' | 'buttons' | 'paper' | 'task'
->
+import { makeStyles } from '@material-ui/styles'
 
 export const useStyles = makeStyles(() => ({
 	paper: {

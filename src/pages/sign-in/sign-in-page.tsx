@@ -18,15 +18,17 @@ import { RootStateType } from '../../core/types/common-types'
 
 export const SignInPage: React.FC = React.memo(() => {
 	const styles = useStyles()
-	const dispatch = useDispatch()
-	const error = useSelector((state: RootStateType) => state.auth.error)
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+	const error = useSelector((state: RootStateType) => state.auth.error)
+	const dispatch = useDispatch()
+
 	const onEmailChange = (
 		event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
 	) => {
 		setEmail(event.currentTarget.value)
 	}
+
 	const onPasswordChange = (
 		event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
 	) => {
@@ -43,6 +45,7 @@ export const SignInPage: React.FC = React.memo(() => {
 	const onSignInWithGoogle = () => {
 		dispatch(signInWithGoogle())
 	}
+
 	return (
 		<Container className={styles.signinBox}>
 			{error ? <Toast /> : ''}

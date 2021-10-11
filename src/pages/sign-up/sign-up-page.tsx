@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { Button, Container, TextField, Typography } from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import { SignUpPageStylesPropsType, useStyles } from './sign-up-page.styles'
+import { useStyles } from './sign-up-page.styles'
 import { Toast } from '../../utils/toast/toast'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -11,12 +11,12 @@ import {
 import { RootStateType } from '../../core/types/common-types'
 
 export const SignUpPage: React.FC = React.memo(() => {
-	const styles: SignUpPageStylesPropsType = useStyles()
-	const dispatch = useDispatch()
+	const styles = useStyles()
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [confirmPassword, setConfirmPassword] = useState('')
 	const error = useSelector((state: RootStateType) => state.auth.error)
+	const dispatch = useDispatch()
 
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
@@ -40,16 +40,19 @@ export const SignUpPage: React.FC = React.memo(() => {
 	) => {
 		setEmail(event.currentTarget.value)
 	}
+
 	const onPasswordChange = (
 		event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
 	) => {
 		setPassword(event.currentTarget.value)
 	}
+
 	const onConfirmedPasswordChange = (
 		event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
 	) => {
 		setConfirmPassword(event.currentTarget.value)
 	}
+
 	return (
 		<Container className={styles.signUpBox}>
 			{error ? <Toast /> : ''}

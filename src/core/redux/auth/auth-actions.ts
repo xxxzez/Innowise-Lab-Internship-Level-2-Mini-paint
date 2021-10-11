@@ -5,6 +5,7 @@ export const setCurrentUser = (user: UserType) => ({
 	type: AuthActionTypes.SET_CURRENT_USER,
 	payload: user,
 })
+
 export const signInWithEmail = (email: string, password: string) => ({
 	type: AuthActionTypes.SIGN_IN_WITH_EMAIL,
 	email,
@@ -27,6 +28,7 @@ export const signInWithGoogle = () => ({
 export const signOut = () => ({
 	type: AuthActionTypes.SIGN_OUT,
 })
+
 export const setErrorMessage = (errorMessage: string | null) => ({
 	type: AuthActionTypes.SET_ERROR_MESSAGE,
 	errorMessage,

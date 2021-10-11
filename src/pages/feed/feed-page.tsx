@@ -13,9 +13,10 @@ export const FeedPage: React.FC = React.memo(() => {
 	const styles = useStyles()
 	const [isLoading, setIsLoading] = useState(false)
 	const [artist, setArtist] = useState<string>('All artists')
-	const dispatch = useDispatch()
 	const images = useSelector((state: RootStateType) => state.images.images)
 	const error = useSelector((state: RootStateType) => state.auth.error)
+	const dispatch = useDispatch()
+	const usersArray: string[] = ['All artists']
 
 	useEffect(() => {
 		setIsLoading(true)
@@ -23,7 +24,6 @@ export const FeedPage: React.FC = React.memo(() => {
 		setIsLoading(false)
 	}, [dispatch])
 
-	const usersArray: string[] = ['All artists']
 	images.forEach((image: ImageType) => {
 		if (!usersArray.includes(image.userEmail)) {
 			usersArray.push(image.userEmail)

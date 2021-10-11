@@ -1,4 +1,3 @@
-import './App.css'
 import { SignInPage } from './pages/sign-in/sign-in-page'
 import { useEffect, useState } from 'react'
 import { Header } from './components/header/header'
@@ -12,11 +11,13 @@ import { setCurrentUser } from './core/redux/auth/auth-actions'
 import { FeedPage } from './pages/feed/feed-page'
 import { EditorPage } from './pages/editor/editor-page'
 import { RootStateType } from './core/types/common-types'
+import { useStyles } from './app.styles'
 
 function App() {
+	const styles = useStyles()
 	const [isLoading, setIsLoading] = useState(false)
-	const dispatch = useDispatch()
 	const user = useSelector((state: RootStateType) => state.auth.user)
+	const dispatch = useDispatch()
 
 	useEffect(() => {
 		setIsLoading(true)
@@ -38,12 +39,12 @@ function App() {
 	}, [dispatch])
 
 	return (
-		<Container className="App">
+		<Container>
 			<Header />
 			{isLoading ? (
 				<Preloader />
 			) : (
-				<Container className="main">
+				<Container className={styles.main}>
 					{user ? (
 						<Switch>
 							<Route exact path="/">

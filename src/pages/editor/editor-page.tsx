@@ -5,6 +5,7 @@ import { useStyles } from './editor-page.styles'
 
 export const EditorPage = () => {
 	const styles = useStyles()
+
 	return (
 		<Box className={styles.editor}>
 			<Box className={styles.buttons}>

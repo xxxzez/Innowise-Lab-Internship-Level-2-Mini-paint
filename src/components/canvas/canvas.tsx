@@ -1,7 +1,7 @@
 import { Box, Button, MenuItem, Paper, Select } from '@material-ui/core'
 import {  MouseEvent, useEffect, useRef, useState } from 'react'
 import BrushIcon from '@material-ui/icons/Brush'
-import './canvas.styles.css'
+import './canvas.styles.ts'
 import CropLandscapeOutlined from '@material-ui/icons/CropLandscape'
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked'
 import RemoveIcon from '@material-ui/icons/Remove'
@@ -9,9 +9,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
 import { createImageInstanceInDB } from '../../core/redux/images/images-actions'
 import { storage } from '../../core/firebase/firebase'
-import { RootStateType } from '../../core/types/common-types'
-
-type MouseDownType = undefined | null  | number
+import { MouseDownType, RootStateType } from '../../core/types/common-types'
+import { useStyles } from './canvas.styles'
 
 export const Canvas = () => {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null)
@@ -29,7 +28,8 @@ export const Canvas = () => {
 	const user = useSelector((state: RootStateType) => state.auth.user)
 	const history = useHistory()
 	const dispatch = useDispatch()
-	console.log(mouseDownX)
+	const styles = useStyles()
+	
 	useEffect(() => {
 		if (canvasRef.current && subCanvasRef.current) {
 			setContext(canvasRef.current.getContext('2d'))
@@ -171,8 +171,9 @@ export const Canvas = () => {
 	}
 	return (
 		<Box className="canvas-box">
-			<Box className="buttons">
+			<Box className={styles.buttons}>
 				<Button
+					className={styles.btn}
 					variant="contained"
 					color={tool === 'pencil' ? 'primary' : 'inherit'}
 					onClick={() => setTool('pencil')}
@@ -180,6 +181,7 @@ export const Canvas = () => {
 					<BrushIcon />
 				</Button>
 				<Button
+					className={styles.btn}
 					variant="contained"
 					color={tool === 'rectangle' ? 'primary' : 'inherit'}
 					onClick={() => setTool('rectangle')}
@@ -187,6 +189,7 @@ export const Canvas = () => {
 					<CropLandscapeOutlined />
 				</Button>
 				<Button
+					className={styles.btn}
 					color={tool === 'circle' ? 'primary' : 'inherit'}
 					variant="contained"
 					onClick={() => setTool('circle')}
@@ -194,6 +197,7 @@ export const Canvas = () => {
 					<RadioButtonUncheckedIcon />
 				</Button>
 				<Button
+					className={styles.btn}
 					color={tool === 'line' ? 'primary' : 'inherit'}
 					variant="contained"
 					onClick={() => setTool('line')}
@@ -201,6 +205,7 @@ export const Canvas = () => {
 					<RemoveIcon />
 				</Button>
 				<Button
+					className={styles.btn}
 					color={dash === true ? 'primary' : 'inherit'}
 					variant="contained"
 					onClick={handleDash}
@@ -208,6 +213,7 @@ export const Canvas = () => {
 					Dash
 				</Button>
 				<Button
+					className={styles.btn}
 					color={blur > 0 ? 'primary' : 'inherit'}
 					variant="contained"
 					onClick={handleBlur}
@@ -215,21 +221,22 @@ export const Canvas = () => {
 					Blur
 				</Button>
 				<input
+					className={styles.btn}
 					type="color"
 					value={color}
 					onChange={(event) => setColor(event.target.value)}
 				/>
 				<Select
-					className="select"
+					className={styles.btn}
 					value={lineWidth}
 					onChange={(e: React.ChangeEvent<{ value: unknown }>) => setLineWidth(e.target.value as number)}
 				>
 					{
 					amountOfWidthOption.map(num => <MenuItem key={num} value={num}>{num}</MenuItem>)	
 					}
-				
 				</Select>
 				<Button
+					className={styles.btn}
 					variant="contained"
 					color="secondary"
 					onClick={clearCanvas}
@@ -237,6 +244,7 @@ export const Canvas = () => {
 					Clear
 				</Button>
 				<Button
+					className={styles.btn}
 					color="secondary"
 					variant="contained"
 					onClick={saveImage}
@@ -244,16 +252,16 @@ export const Canvas = () => {
 					save
 				</Button>
 			</Box>
-			<Paper className="canvasContainer" ref={wrapperRef} elevation={5}>
+			<Paper className={styles.canvasContainer} ref={wrapperRef} elevation={5}>
 				<canvas
 					ref={subCanvasRef}
 					width={800}
 					height={600}
-					className="canvas"
+					className={styles.canvas}
 				></canvas>
 				<canvas
 					ref={canvasRef}
-					className="canvas"
+					className={styles.canvas}
 					width={800}
 					height={600}
 					onMouseDown={onMouseDown}
