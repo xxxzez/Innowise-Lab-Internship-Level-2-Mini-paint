@@ -1,4 +1,4 @@
-import { ErrorType, ImageType } from './../types/common-types'
+import { ImageType } from './../types/common-types'
 import { removeImage, setImages } from './../redux/images/images-actions'
 import { ImagesActionTypes } from './../redux/images/images-types'
 import { takeEvery, call, put } from '@redux-saga/core/effects'
@@ -20,8 +20,10 @@ function* workerFetchImages(): Generator {
 		const querySnapshot: any = yield call(fetchAllImages)
 		querySnapshot.forEach((doc: any) => imagesArray.push(doc.data()))
 		yield put(setImages(imagesArray.reverse()))
-	} catch (error: ErrorType) {
-		yield put(setErrorMessage(error.message))
+	} catch (error) {
+		if (error instanceof Error) {
+			yield put(setErrorMessage(error.message))
+		}
 	}
 }
 
@@ -31,8 +33,10 @@ function* workerDeleteImage(payload: AnyAction) {
 		yield call(deleteImageInStorage, imagePath)
 		yield call(deleteImageInDatabase, imageId)
 		yield put(removeImage(imageId))
-	} catch (error: ErrorType) {
-		yield put(setErrorMessage(error.message))
+	} catch (error) {
+		if (error instanceof Error) {
+			yield put(setErrorMessage(error.message))
+		}
 	}
 }
 
@@ -40,8 +44,10 @@ function* workerUploadImage(payload: AnyAction) {
 	const { imagePath, imageURL } = payload
 	try {
 		yield call(loadImageToStorage, imagePath, imageURL)
-	} catch (error: ErrorType) {
-		yield put(setErrorMessage(error.message))
+	} catch (error) {
+		if (error instanceof Error) {
+			yield put(setErrorMessage(error.message))
+		}
 	}
 }
 
@@ -55,8 +61,10 @@ function* workerCreateImageInstance(payload: AnyAction) {
 			imageId,
 			imagePath
 		)
-	} catch (error: ErrorType) {
-		yield put(setErrorMessage(error.message))
+	} catch (error) {
+		if (error instanceof Error) {
+			yield put(setErrorMessage(error.message))
+		}
 	}
 }
 

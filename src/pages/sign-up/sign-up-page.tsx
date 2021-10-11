@@ -8,7 +8,7 @@ import {
 	setErrorMessage,
 	signUpWithEmailAndPassword,
 } from '../../core/redux/auth/auth-actions'
-import { ErrorType, RootStateType } from '../../core/types/common-types'
+import { RootStateType } from '../../core/types/common-types'
 
 export const SignUpPage: React.FC = React.memo(() => {
 	const styles: SignUpPageStylesPropsType = useStyles()

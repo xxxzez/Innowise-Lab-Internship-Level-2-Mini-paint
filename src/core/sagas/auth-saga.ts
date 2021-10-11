@@ -1,4 +1,3 @@
-import { ErrorType } from './../types/common-types'
 import { takeEvery, call, put } from '@redux-saga/core/effects'
 import { all } from 'redux-saga/effects'
 import {
@@ -10,6 +9,7 @@ import {
 } from '../firebase/auth-api'
 import { setCurrentUser, setErrorMessage } from '../redux/auth/auth-actions'
 import { AuthActionTypes } from '../redux/auth/auth-types'
+import { AnyAction } from 'redux'
 
 //workers
 function* workerSignInWithGoogle() {
@@ -22,12 +22,15 @@ function* workerSignInWithGoogle() {
 		}
 		yield call(createNewUserInDB, currentUser)
 		yield put(setCurrentUser(currentUser))
-	} catch (error: any) {
-		yield put(setErrorMessage(error.message))
+	} catch (error) {
+		if (error instanceof Error) {
+			yield put(setErrorMessage(error.message))
+		}
 	}
 }
 
-function* workerSignInWithEmail({ email, password }: any) {
+function* workerSignInWithEmail(payload: AnyAction) {
+	const { email, password } = payload
 	try {
 		const { user } = yield call(getAuthDataFromEmailSignIn, email, password)
 		const currentUser = {
@@ -36,11 +39,14 @@ function* workerSignInWithEmail({ email, password }: any) {
 			photo: user.photoURL,
 		}
 		yield put(setCurrentUser(currentUser))
-	} catch (error: ErrorType) {
-		yield put(setErrorMessage(error.message))
+	} catch (error) {
+		if (error instanceof Error) {
+			yield put(setErrorMessage(error.message))
+		}
 	}
 }
-function* workerSignUpWithEmailAndPassword({ email, password }: any) {
+function* workerSignUpWithEmailAndPassword(payload: AnyAction) {
+	const { email, password } = payload
 	try {
 		const { user } = yield call(getAuthDataFromEmailSignUp, email, password)
 		const currentUser = {
@@ -50,16 +56,20 @@ function* workerSignUpWithEmailAndPassword({ email, password }: any) {
 		}
 		yield call(createNewUserInDB, currentUser)
 		yield put(setCurrentUser(currentUser))
-	} catch (error: ErrorType) {
-		yield put(setErrorMessage(error.message))
+	} catch (error) {
+		if (error instanceof Error) {
+			yield put(setErrorMessage(error.message))
+		}
 	}
 }
 function* workerSignOut() {
 	try {
 		yield call(signOut)
 		yield put(setCurrentUser(null))
-	} catch (error: ErrorType) {
-		yield put(setErrorMessage(error.message))
+	} catch (error) {
+		if (error instanceof Error) {
+			yield put(setErrorMessage(error.message))
+		}
 	}
 }
 

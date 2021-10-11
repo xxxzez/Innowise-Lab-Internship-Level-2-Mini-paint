@@ -9,10 +9,10 @@ import {
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { signOut } from '../../core/redux/auth/auth-actions'
-import { HeaderPropsType, RootStateType } from '../../core/types/common-types'
+import { RootStateType } from '../../core/types/common-types'
 import { useStyles } from './header.styles'
 
-export const Header: React.FC<HeaderPropsType> = React.memo(() => {
+export const Header: React.FC = React.memo(() => {
 	const styles = useStyles()
 	const user = useSelector((state: RootStateType) => state.auth.user)
 	const dispatch = useDispatch()
@@ -49,4 +49,3 @@ export const Header: React.FC<HeaderPropsType> = React.memo(() => {
 		</AppBar>
 	)
 })
- 
