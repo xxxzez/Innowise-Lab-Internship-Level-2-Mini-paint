@@ -4,19 +4,24 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setErrorMessage } from '../../core/redux/auth/auth-actions'
 import { deleteImage } from '../../core/redux/images/images-actions'
+import { ImageType, RootStateType } from '../../core/types/common-types'
 import { Toast } from '../../utils/toast/toast'
 import { useStyles } from './image.styles'
 
-export const Image: React.FC<any> = React.memo(({ image }) => {
+type ImagePropsType = {
+	image: ImageType,
+}
+
+export const Image: React.FC<ImagePropsType> = React.memo(({ image }) => {
 	const styles = useStyles()
-	const user = useSelector((state: any) => state.auth.user)
-	const error = useSelector((state: any) => state.auth.error)
+	const user = useSelector((state: RootStateType) => state.auth.user)
+	const error = useSelector((state: RootStateType) => state.auth.error)
 	const dispatch = useDispatch()
 
 	const handleDeleteImage = async () => {
 		if (
-			user.email === 'matvei.bohush@innowise-group.com' ||
-			user.email === image.userEmail
+			user!.email === 'matvei.bohush@innowise-group.com' ||
+			user!.email === image.userEmail
 		) {
 			dispatch(deleteImage(image.imagePath, image.imageId))
 		} else {

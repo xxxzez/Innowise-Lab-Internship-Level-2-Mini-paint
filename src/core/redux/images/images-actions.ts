@@ -1,5 +1,5 @@
+import { ImageType } from './../../types/common-types'
 import { UserType } from './../../types/user-types'
-import { ImageType } from './images-reducer'
 import { ImagesActionTypes } from './images-types'
 
 export const fetchImages = () => ({
@@ -11,12 +11,12 @@ export const setImages = (images: ImageType[]) => ({
 	payload: images,
 })
 
-export const removeImage = (imageId: any) => ({
+export const removeImage = (imageId: number) => ({
 	type: ImagesActionTypes.REMOVE_IMAGE,
 	payload: imageId,
 })
 
-export const deleteImage = (imagePath: any, imageId: any) => ({
+export const deleteImage = (imagePath: string, imageId: number) => ({
 	type: ImagesActionTypes.DELETE_IMAGE,
 	imagePath,
 	imageId,
@@ -36,9 +36,9 @@ export const uploadImage = (imagePath: string, imageURL: string) => ({
 
 export const createImageInstanceInDB = (
 	user: UserType,
-	imageURL: any,
-	imageId: any,
-	imagePath: any
+	imageURL: string,
+	imageId: number,
+	imagePath: string
 ) => ({
 	type: ImagesActionTypes.CREATE_IMAGE_INSTANCE_IN_DATABASE,
 	user,

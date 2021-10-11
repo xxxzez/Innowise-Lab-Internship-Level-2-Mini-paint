@@ -1,6 +1,7 @@
+import { UserType } from '../../types/user-types'
 import { AuthActionTypes } from './auth-types'
 
-export const setCurrentUser = (user: any) => ({
+export const setCurrentUser = (user: UserType) => ({
 	type: AuthActionTypes.SET_CURRENT_USER,
 	payload: user,
 })
@@ -26,7 +27,7 @@ export const signInWithGoogle = () => ({
 export const signOut = () => ({
 	type: AuthActionTypes.SIGN_OUT,
 })
-export const setErrorMessage = (errorMessage: any) => ({
+export const setErrorMessage = (errorMessage: string | null) => ({
 	type: AuthActionTypes.SET_ERROR_MESSAGE,
 	errorMessage,
 })

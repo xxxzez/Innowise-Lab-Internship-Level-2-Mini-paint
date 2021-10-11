@@ -9,12 +9,12 @@ import {
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { signOut } from '../../core/redux/auth/auth-actions'
-import { HeaderPropsType } from '../../core/types/common-types'
+import { HeaderPropsType, RootStateType } from '../../core/types/common-types'
 import { useStyles } from './header.styles'
 
 export const Header: React.FC<HeaderPropsType> = React.memo(() => {
 	const styles = useStyles()
-	const user = useSelector((state: any) => state.auth.user)
+	const user = useSelector((state: RootStateType) => state.auth.user)
 	const dispatch = useDispatch()
 	const onSignOut = () => {
 		dispatch(signOut())

@@ -8,6 +8,7 @@ import {
 	setErrorMessage,
 	signUpWithEmailAndPassword,
 } from '../../core/redux/auth/auth-actions'
+import { ErrorType, RootStateType } from '../../core/types/common-types'
 
 export const SignUpPage: React.FC = React.memo(() => {
 	const styles: SignUpPageStylesPropsType = useStyles()
@@ -15,7 +16,7 @@ export const SignUpPage: React.FC = React.memo(() => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [confirmPassword, setConfirmPassword] = useState('')
-	const error = useSelector((state: any) => state.auth.error)
+	const error = useSelector((state: RootStateType) => state.auth.error)
 
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault()

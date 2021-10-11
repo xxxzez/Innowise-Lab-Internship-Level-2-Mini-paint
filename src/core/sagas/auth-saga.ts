@@ -1,3 +1,4 @@
+import { ErrorType } from './../types/common-types'
 import { takeEvery, call, put } from '@redux-saga/core/effects'
 import { all } from 'redux-saga/effects'
 import {
@@ -25,6 +26,7 @@ function* workerSignInWithGoogle() {
 		yield put(setErrorMessage(error.message))
 	}
 }
+
 function* workerSignInWithEmail({ email, password }: any) {
 	try {
 		const { user } = yield call(getAuthDataFromEmailSignIn, email, password)
@@ -34,7 +36,7 @@ function* workerSignInWithEmail({ email, password }: any) {
 			photo: user.photoURL,
 		}
 		yield put(setCurrentUser(currentUser))
-	} catch (error: any) {
+	} catch (error: ErrorType) {
 		yield put(setErrorMessage(error.message))
 	}
 }
@@ -48,7 +50,7 @@ function* workerSignUpWithEmailAndPassword({ email, password }: any) {
 		}
 		yield call(createNewUserInDB, currentUser)
 		yield put(setCurrentUser(currentUser))
-	} catch (error: any) {
+	} catch (error: ErrorType) {
 		yield put(setErrorMessage(error.message))
 	}
 }
@@ -56,7 +58,7 @@ function* workerSignOut() {
 	try {
 		yield call(signOut)
 		yield put(setCurrentUser(null))
-	} catch (error: any) {
+	} catch (error: ErrorType) {
 		yield put(setErrorMessage(error.message))
 	}
 }

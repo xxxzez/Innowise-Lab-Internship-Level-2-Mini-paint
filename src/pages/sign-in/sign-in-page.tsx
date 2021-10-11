@@ -14,11 +14,12 @@ import {
 	signInWithGoogle,
 	signInWithEmail,
 } from '../../core/redux/auth/auth-actions'
+import { RootStateType } from '../../core/types/common-types'
 
 export const SignInPage: React.FC = React.memo(() => {
 	const styles = useStyles()
 	const dispatch = useDispatch()
-	const error = useSelector((state: any) => state.auth.error)
+	const error = useSelector((state: RootStateType) => state.auth.error)
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const onEmailChange = (

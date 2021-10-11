@@ -8,24 +8,24 @@ export async function fetchAllImages() {
 
 export async function createNewImageReferenceInDB(
 	user: UserType,
-	imageURL: any,
-	imageId: any,
-	imagePath: any
+	imageURL: string,
+	imageId: number,
+	imagePath: string
 ) {
 	const newImageRef = db.collection('images').doc(`${imageId}`)
 	return await newImageRef.set({
-		userEmail: user.email,
+		userEmail: user!.email,
 		imageURL,
 		imageId,
 		imagePath,
 	})
 }
 
-export async function deleteImageInStorage(imagePath: any) {
+export async function deleteImageInStorage(imagePath: string) {
 	return await storage.ref().child(imagePath).delete()
 }
 
-export async function deleteImageInDatabase(imageId: any) {
+export async function deleteImageInDatabase(imageId: number) {
 	return await db.collection('images').doc(`${imageId}`).delete()
 }
 

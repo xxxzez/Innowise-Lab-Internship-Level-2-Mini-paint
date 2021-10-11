@@ -11,11 +11,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setCurrentUser } from './core/redux/auth/auth-actions'
 import { FeedPage } from './pages/feed/feed-page'
 import { EditorPage } from './pages/editor/editor-page'
+import { RootStateType } from './core/types/common-types'
 
 function App() {
 	const [isLoading, setIsLoading] = useState(false)
 	const dispatch = useDispatch()
-	const user = useSelector((state: any) => state.auth.user)
+	const user = useSelector((state: RootStateType) => state.auth.user)
 
 	useEffect(() => {
 		setIsLoading(true)

@@ -6,7 +6,7 @@ import rootSaga from '../sagas/root-saga'
 
 const sagaMiddleware = createSagaMiddleware()
 
-export const store: any = createStore(
+export const store = createStore(
 	rootReducer,
 	composeWithDevTools(applyMiddleware(sagaMiddleware))
 )

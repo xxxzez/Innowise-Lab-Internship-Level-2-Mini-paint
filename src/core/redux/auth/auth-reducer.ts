@@ -1,11 +1,13 @@
+import { AnyAction } from 'redux'
+import { AuthStateType } from './../../types/common-types'
 import { AuthActionTypes } from './auth-types'
 
-const initialState = {
+const initialState: AuthStateType = {
 	user: null,
 	error: null,
 }
 
-export const authReducer = (state = initialState, action: any) => {
+export const authReducer = (state = initialState, action: AnyAction) => {
 	switch (action.type) {
 		case AuthActionTypes.SET_CURRENT_USER:
 			return {

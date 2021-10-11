@@ -1,3 +1,4 @@
+import { ErrorType, ImageType } from './../types/common-types'
 import { removeImage, setImages } from './../redux/images/images-actions'
 import { ImagesActionTypes } from './../redux/images/images-types'
 import { takeEvery, call, put } from '@redux-saga/core/effects'
@@ -10,42 +11,42 @@ import {
 	fetchAllImages,
 	loadImageToStorage,
 } from '../firebase/images-api'
+import { AnyAction } from 'redux'
 
 //workers
-function* workerFetchImages(): any {
+function* workerFetchImages(): Generator {
 	try {
-		const imagesArray: any = []
-		const querySnapshot = yield call(fetchAllImages)
+		const imagesArray: ImageType[] = []
+		const querySnapshot: any = yield call(fetchAllImages)
 		querySnapshot.forEach((doc: any) => imagesArray.push(doc.data()))
 		yield put(setImages(imagesArray.reverse()))
-	} catch (error: any) {
+	} catch (error: ErrorType) {
 		yield put(setErrorMessage(error.message))
 	}
 }
-function* workerDeleteImage({ imagePath, imageId }: any) {
+
+function* workerDeleteImage(payload: AnyAction) {
+	const { imagePath, imageId } = payload
 	try {
 		yield call(deleteImageInStorage, imagePath)
 		yield call(deleteImageInDatabase, imageId)
 		yield put(removeImage(imageId))
-	} catch (error: any) {
+	} catch (error: ErrorType) {
 		yield put(setErrorMessage(error.message))
 	}
 }
 
-function* workerUploadImage({ imagePath, imageURL }: any) {
+function* workerUploadImage(payload: AnyAction) {
+	const { imagePath, imageURL } = payload
 	try {
 		yield call(loadImageToStorage, imagePath, imageURL)
-	} catch (error: any) {
+	} catch (error: ErrorType) {
 		yield put(setErrorMessage(error.message))
 	}
 }
 
-function* workerCreateImageInstance({
-	user,
-	imageURL,
-	imageId,
-	imagePath,
-}: any) {
+function* workerCreateImageInstance(payload: AnyAction) {
+	const { user, imageURL, imageId, imagePath } = payload
 	try {
 		yield call(
 			createNewImageReferenceInDB,
@@ -54,7 +55,7 @@ function* workerCreateImageInstance({
 			imageId,
 			imagePath
 		)
-	} catch (error: any) {
+	} catch (error: ErrorType) {
 		yield put(setErrorMessage(error.message))
 	}
 }
@@ -76,7 +77,7 @@ function* watchCreateImageInstance() {
 	)
 }
 
-export default function* imagesSaga() {
+export default function* imagesSaga(): Generator {
 	yield all([
 		watchFetchImages(),
 		watchDeleteImage(),

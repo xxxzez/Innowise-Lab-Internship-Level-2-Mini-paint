@@ -1,21 +1,12 @@
+import { AnyAction } from 'redux'
+import { ImagesStateType } from './../../types/common-types'
 import { ImagesActionTypes } from './images-types'
 
-export type ImageType = {
-    imageId: number
-    imagePath: string
-    imageURL: string
-    userEmail: string
+const initialState: ImagesStateType = {
+	images: [],
 }
 
-type ImageStateType = {
-    images: ImageType[]
-}
-
-const initialState: ImageStateType = {
-	images: []
-}
-
-export const imageReducer = (state = initialState, action: any) => {
+export const imageReducer = (state = initialState, action: AnyAction) => {
 	switch (action.type) {
 		case ImagesActionTypes.SET_IMAGES:
 			return {
@@ -25,7 +16,9 @@ export const imageReducer = (state = initialState, action: any) => {
 		case ImagesActionTypes.REMOVE_IMAGE:
 			return {
 				...state,
-				images: state.images.filter(image => image.imageId !== action.payload)
+				images: state.images.filter(
+					(image) => image.imageId !== action.payload
+				),
 			}
 
 		default:

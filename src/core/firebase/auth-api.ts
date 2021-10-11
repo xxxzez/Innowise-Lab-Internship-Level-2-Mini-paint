@@ -20,10 +20,10 @@ export async function signOut() {
 	return await auth.signOut()
 }
 export async function createNewUserInDB(user: UserType) {
-	const newUserRef = db.collection('users').doc(`${user.uid}`)
+	const newUserRef = db.collection('users').doc(`${user!.uid}`)
 	return await newUserRef.set({
-		userId: user.uid,
-		email: user.email,
-		photo: user.photo,
+		userId: user!.uid,
+		email: user!.email,
+		photo: user!.photo,
 	})
 }

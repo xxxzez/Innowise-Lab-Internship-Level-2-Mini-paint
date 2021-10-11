@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { Image } from '../../components/image/image'
 import { fetchImages } from '../../core/redux/images/images-actions'
+import { ImageType, RootStateType } from '../../core/types/common-types'
 import { Preloader } from '../../utils/preloader/preloader'
 import { Toast } from '../../utils/toast/toast'
 import { useStyles } from './feed-page.styles'
@@ -11,10 +12,10 @@ import { useStyles } from './feed-page.styles'
 export const FeedPage: React.FC = React.memo(() => {
 	const styles = useStyles()
 	const [isLoading, setIsLoading] = useState(false)
-	const [artist, setArtist] = useState<any>('All artists')
+	const [artist, setArtist] = useState<string>('All artists')
 	const dispatch = useDispatch()
-	const images = useSelector((state: any) => state.images.images)
-	const error = useSelector((state: any) => state.auth.error)
+	const images = useSelector((state: RootStateType) => state.images.images)
+	const error = useSelector((state: RootStateType) => state.auth.error)
 
 	useEffect(() => {
 		setIsLoading(true)
@@ -22,8 +23,8 @@ export const FeedPage: React.FC = React.memo(() => {
 		setIsLoading(false)
 	}, [dispatch])
 
-	const usersArray: any = ['All artists']
-	images.forEach((image: any) => {
+	const usersArray: string[] = ['All artists']
+	images.forEach((image: ImageType) => {
 		if (!usersArray.includes(image.userEmail)) {
 			usersArray.push(image.userEmail)
 		}
@@ -31,7 +32,7 @@ export const FeedPage: React.FC = React.memo(() => {
 	const filteredImages =
 		artist === 'All artists'
 			? images
-			: images.filter((image: any) => image.userEmail === artist)
+			: images.filter((image: ImageType) => image.userEmail === artist)
 
 	return (
 		<Box>
@@ -62,9 +63,11 @@ export const FeedPage: React.FC = React.memo(() => {
 						<Select
 							className={styles.select}
 							value={artist}
-							onChange={(e: any) => setArtist(e.target.value)}
+							onChange={(
+								e: React.ChangeEvent<{ value: unknown }>
+							) => setArtist(e.target.value as string)}
 						>
-							{usersArray.map((user: any) => (
+							{usersArray.map((user: string) => (
 								<MenuItem key={user} value={user}>
 									{user}
 								</MenuItem>
@@ -73,7 +76,7 @@ export const FeedPage: React.FC = React.memo(() => {
 					</Box>
 					<Box>
 						{images && images.length > 0 ? (
-							filteredImages.map((image: any) => (
+							filteredImages.map((image: ImageType) => (
 								<Image image={image} key={image.imageId} />
 							))
 						) : (
