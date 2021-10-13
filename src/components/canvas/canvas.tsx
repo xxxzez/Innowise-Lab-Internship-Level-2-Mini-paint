@@ -37,19 +37,19 @@ export const Canvas = () => {
 		}
 	}, [])
 
-	const clearCanvas = () => {
+	const clearContext = (context: any, canvasRef: any) => {
 		context!.clearRect(
 			0,
 			0,
 			canvasRef.current!.width,
 			canvasRef.current!.height
 		)
-		subContext!.clearRect(
-			0,
-			0,
-			subCanvasRef.current!.width,
-			subCanvasRef.current!.height
-		)
+	}
+
+	const clearCanvas = () => {
+		clearContext(context, canvasRef)
+		clearContext(subContext, subCanvasRef)
+	
 	}
 
 	const onMouseDown = (e: MouseEvent<HTMLCanvasElement>) => {
@@ -67,6 +67,52 @@ export const Canvas = () => {
 			wrapperRef.current &&
 			canvasRef.current
 		) {
+			const onMouseMovePencil = () => {
+				context.lineTo(
+					e.pageX - target.offsetLeft,
+					e.pageY - target.offsetTop
+				)
+				context.stroke()
+			}
+			const onMouseMoveRectangle = () => {
+				let width =
+						e.pageX - mouseDownX - wrapperRef.current!.offsetLeft
+					let height =
+						e.pageY - mouseDownY - wrapperRef.current!.offsetTop
+					context.strokeRect(mouseDownX, mouseDownY, width, height)
+					context.stroke()
+			}
+			const onMouseMoveCircle = () => {
+				context.beginPath()
+					context.arc(
+						mouseDownX,
+						mouseDownY,
+						Math.sqrt(
+							(e.pageX -
+								mouseDownX -
+								wrapperRef.current!.offsetLeft) **
+								2 +
+								(e.pageY -
+									mouseDownY -
+									wrapperRef.current!.offsetTop) **
+									2
+						),
+						0,
+						Math.PI * 2,
+						false
+					)
+					context.stroke()
+			}
+			const onMouseMoveLine = () => {
+				context.beginPath()
+				context.moveTo(mouseDownX, mouseDownY)
+				context.lineTo(
+					e.pageX - wrapperRef.current!.offsetLeft,
+					e.pageY - wrapperRef.current!.offsetTop
+				)
+				context.stroke()
+			}
+
 			context.strokeStyle = color
 			context.lineWidth = lineWidth
 			context.lineCap = 'round'
@@ -78,59 +124,20 @@ export const Canvas = () => {
 			} else {
 				context.setLineDash([])
 			}
-		
-			context.clearRect(
-				0,
-				0,
-				canvasRef.current.width,
-				canvasRef.current.height
-			)
+			clearContext(context, canvasRef)
 
 			switch (tool) {
 				case 'pencil':
-					context.lineTo(
-						e.pageX - target.offsetLeft,
-						e.pageY - target.offsetTop
-					)
-					context.stroke()
+					onMouseMovePencil()
 					break
 				case 'rectangle':
-					let width =
-						e.pageX - mouseDownX - wrapperRef.current.offsetLeft
-					let height =
-						e.pageY - mouseDownY - wrapperRef.current.offsetTop
-					context.strokeRect(mouseDownX, mouseDownY, width, height)
-					context.stroke()
+					onMouseMoveRectangle()
 					break
 				case 'circle':
-					context.beginPath()
-					context.arc(
-						mouseDownX,
-						mouseDownY,
-						Math.sqrt(
-							(e.pageX -
-								mouseDownX -
-								wrapperRef.current.offsetLeft) **
-								2 +
-								(e.pageY -
-									mouseDownY -
-									wrapperRef.current.offsetTop) **
-									2
-						),
-						0,
-						Math.PI * 2,
-						false
-					)
-					context.stroke()
+					onMouseMoveCircle()
 					break
 				case 'line':
-					context.beginPath()
-					context.moveTo(mouseDownX, mouseDownY)
-					context.lineTo(
-						e.pageX - wrapperRef.current.offsetLeft,
-						e.pageY - wrapperRef.current.offsetTop
-					)
-					context.stroke()
+					onMouseMoveLine()
 					break
 				default:
 					break
@@ -160,14 +167,13 @@ export const Canvas = () => {
 	}
 
 	const handleDash = () => setDash( dash === false ? true : false)
-	
 	const handleBlur = () => setBlur( blur === 0 ? 10 : 0)
 	
 	const amountOfWidthOption = []
-
 	for(let i = 1; i <101; i++){
 		amountOfWidthOption.push(i)
 	}
+
 	return (
 		<Box className="canvas-box">
 			<Box className={styles.buttons}>
@@ -228,7 +234,8 @@ export const Canvas = () => {
 				<Select
 					className={styles.btn}
 					value={lineWidth}
-					onChange={(e: React.ChangeEvent<{ value: unknown }>) => setLineWidth(e.target.value as number)}
+					onChange={(e: React.ChangeEvent<{ value: unknown }>) =>
+					 setLineWidth(e.target.value as number)}
 				>
 					{
 					amountOfWidthOption.map(num => <MenuItem key={num} value={num}>{num}</MenuItem>)	
