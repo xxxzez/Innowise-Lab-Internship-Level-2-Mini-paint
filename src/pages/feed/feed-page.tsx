@@ -1,5 +1,5 @@
 import { Box, Button, MenuItem, Select } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { Image } from '../../components/image/image'
@@ -9,7 +9,7 @@ import { Preloader } from '../../utils/preloader/preloader'
 import { Toast } from '../../utils/toast/toast'
 import { useStyles } from './feed-page.styles'
 
-export const FeedPage: React.FC = React.memo(() => {
+export const FeedPage: FC = () => {
 	const styles = useStyles()
 	const [isLoading, setIsLoading] = useState(false)
 	const [artist, setArtist] = useState<string>('All artists')
@@ -40,7 +40,7 @@ export const FeedPage: React.FC = React.memo(() => {
 				<Preloader />
 			) : (
 				<Box className={styles.feed}>
-					{error ? <Toast /> : ''}
+					{error && <Toast />}
 					<Box className={styles.buttons}>
 						<Button
 							variant="outlined"
@@ -64,7 +64,7 @@ export const FeedPage: React.FC = React.memo(() => {
 							className={styles.select}
 							value={artist}
 							onChange={(
-								e: React.ChangeEvent<{ value: unknown }>
+								e: ChangeEvent<{ value: unknown }>
 							) => setArtist(e.target.value as string)}
 						>
 							{usersArray.map((user: string) => (
@@ -87,4 +87,4 @@ export const FeedPage: React.FC = React.memo(() => {
 			)}
 		</Box>
 	)
-})
+}

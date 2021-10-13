@@ -6,25 +6,24 @@ import {
 	Toolbar,
 	Typography,
 } from '@material-ui/core'
-import React from 'react'
+import { FC } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { signOut } from '../../core/redux/auth/auth-actions'
 import { RootStateType } from '../../core/types/common-types'
 import { useStyles } from './header.styles'
 
-export const Header: React.FC = React.memo(() => {
+export const Header: FC = () => {
 	const styles = useStyles()
 	const user = useSelector((state: RootStateType) => state.auth.user)
 	const dispatch = useDispatch()
-	const onSignOut = () => {
-		dispatch(signOut())
-	}
+	const onSignOut = () => dispatch(signOut())
+
 	return (
 		<AppBar position="static">
 			<Toolbar className={styles.header}>
 				<Typography variant="h5">Paint</Typography>
 
-				{user ? (
+				{user && (
 					<Box className={styles.info}>
 						<Typography variant="body2">{user.email}</Typography>
 						<Avatar
@@ -42,10 +41,8 @@ export const Header: React.FC = React.memo(() => {
 							Sign out
 						</Button>
 					</Box>
-				) : (
-					''
 				)}
 			</Toolbar>
 		</AppBar>
 	)
-})
+}

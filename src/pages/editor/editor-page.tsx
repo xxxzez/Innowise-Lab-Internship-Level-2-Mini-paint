@@ -1,10 +1,9 @@
 import { Box, Button } from '@material-ui/core'
-import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { Canvas } from '../../components/canvas/canvas'
 import { useStyles } from './editor-page.styles'
 
-export const EditorPage = React.memo(() => {
+export const EditorPage = () => {
 	const styles = useStyles()
 
 	return (
@@ -32,4 +31,4 @@ export const EditorPage = React.memo(() => {
 			<Canvas />
 		</Box>
 	)
-})
+}

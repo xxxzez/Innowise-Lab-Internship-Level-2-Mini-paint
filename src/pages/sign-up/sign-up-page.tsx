@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FC, FormEvent, useState } from 'react'
 import { Button, Container, TextField, Typography } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import { useStyles } from './sign-up-page.styles'
@@ -10,7 +10,7 @@ import {
 } from '../../core/redux/auth/auth-actions'
 import { RootStateType } from '../../core/types/common-types'
 
-export const SignUpPage: React.FC = React.memo(() => {
+export const SignUpPage: FC = () => {
 	const styles = useStyles()
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
@@ -28,34 +28,24 @@ export const SignUpPage: React.FC = React.memo(() => {
 			dispatch(setErrorMessage('Password must be without spaces!'))
 			return
 		}
-
 		dispatch(signUpWithEmailAndPassword(email, password))
 		setEmail('')
 		setPassword('')
 		setConfirmPassword('')
 	}
 
-	const onEmailChange = (
-		event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-	) => {
+	const onEmailChange = (event: ChangeEvent<HTMLInputElement>) =>
 		setEmail(event.currentTarget.value)
-	}
 
-	const onPasswordChange = (
-		event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-	) => {
+	const onPasswordChange = (event: ChangeEvent<HTMLInputElement>) =>
 		setPassword(event.currentTarget.value)
-	}
 
-	const onConfirmedPasswordChange = (
-		event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-	) => {
+	const onConfirmedPasswordChange = (event: ChangeEvent<HTMLInputElement>) =>
 		setConfirmPassword(event.currentTarget.value)
-	}
 
 	return (
 		<Container className={styles.signUpBox}>
-			{error ? <Toast /> : ''}
+			{error && <Toast />}
 			<Typography variant="h5">
 				Sign up with email and password
 			</Typography>
@@ -103,4 +93,4 @@ export const SignUpPage: React.FC = React.memo(() => {
 			</form>
 		</Container>
 	)
-})
+}

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FC, FormEvent, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
 	Box,
@@ -16,24 +16,18 @@ import {
 } from '../../core/redux/auth/auth-actions'
 import { RootStateType } from '../../core/types/common-types'
 
-export const SignInPage: React.FC = React.memo(() => {
+export const SignInPage: FC = () => {
 	const styles = useStyles()
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const error = useSelector((state: RootStateType) => state.auth.error)
 	const dispatch = useDispatch()
 
-	const onEmailChange = (
-		event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-	) => {
+	const onEmailChange = (event: ChangeEvent<HTMLInputElement>) =>
 		setEmail(event.currentTarget.value)
-	}
 
-	const onPasswordChange = (
-		event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-	) => {
+	const onPasswordChange = (event: ChangeEvent<HTMLInputElement>) =>
 		setPassword(event.currentTarget.value)
-	}
 
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
@@ -42,13 +36,11 @@ export const SignInPage: React.FC = React.memo(() => {
 		setPassword('')
 	}
 
-	const onSignInWithGoogle = () => {
-		dispatch(signInWithGoogle())
-	}
+	const onSignInWithGoogle = () => dispatch(signInWithGoogle())
 
 	return (
 		<Container className={styles.signinBox}>
-			{error ? <Toast /> : ''}
+			{error && <Toast />}
 			<Typography variant="h5">
 				Sign in with email and password
 			</Typography>
@@ -62,7 +54,6 @@ export const SignInPage: React.FC = React.memo(() => {
 					label="Email"
 					className={styles.input}
 				/>
-
 				<TextField
 					value={password}
 					onChange={onPasswordChange}
@@ -101,4 +92,4 @@ export const SignInPage: React.FC = React.memo(() => {
 			</Box>
 		</Container>
 	)
-})
+}

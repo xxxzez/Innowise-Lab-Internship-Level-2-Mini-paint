@@ -1,5 +1,5 @@
 import { Box, Button, MenuItem, Paper, Select } from '@material-ui/core'
-import React, {  MouseEvent, useEffect, useRef, useState } from 'react'
+import  {  MouseEvent, useEffect, useRef, useState } from 'react'
 import BrushIcon from '@material-ui/icons/Brush'
 import './canvas.styles.ts'
 import CropLandscapeOutlined from '@material-ui/icons/CropLandscape'
@@ -12,7 +12,7 @@ import { storage } from '../../core/firebase/firebase'
 import { MouseDownType, RootStateType } from '../../core/types/common-types'
 import { useStyles } from './canvas.styles'
 
-export const Canvas = React.memo(() => {
+export const Canvas = () => {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null)
 	const subCanvasRef = useRef<HTMLCanvasElement | null>(null)
 	const wrapperRef = useRef<HTMLDivElement | null>(null)
@@ -159,13 +159,12 @@ export const Canvas = React.memo(() => {
 		history.push('/')
 	}
 
-	const handleDash = () => {
-		setDash( dash === false ? true : false)
-	}
-	const handleBlur = () => {
-		setBlur( blur === 0 ? 10 : 0)
-	}
+	const handleDash = () => setDash( dash === false ? true : false)
+	
+	const handleBlur = () => setBlur( blur === 0 ? 10 : 0)
+	
 	const amountOfWidthOption = []
+
 	for(let i = 1; i <101; i++){
 		amountOfWidthOption.push(i)
 	}
@@ -271,4 +270,4 @@ export const Canvas = React.memo(() => {
 			</Paper>
 		</Box>
 	)
-})
+}

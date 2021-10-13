@@ -1,10 +1,10 @@
 import { Box } from '@material-ui/core'
 import Backdrop from '@material-ui/core/Backdrop'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import React from 'react'
+import { FC } from 'react'
 import { useStyles } from './preloader.styles'
 
-export const Preloader: React.FC = React.memo(() => {
+export const Preloader: FC = () => {
 	const styles = useStyles()
 	return (
 		<Box>
@@ -13,4 +13,4 @@ export const Preloader: React.FC = React.memo(() => {
 			</Backdrop>
 		</Box>
 	)
-})
+}

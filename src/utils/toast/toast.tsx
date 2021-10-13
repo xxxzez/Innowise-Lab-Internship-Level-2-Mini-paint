@@ -3,17 +3,17 @@ import MuiAlert from '@material-ui/lab/Alert'
 import { Box } from '@material-ui/core'
 import { useStyles } from './toast.style'
 import { RootStateType } from '../../core/types/common-types'
-import React, { useState } from 'react'
+import { FC, SyntheticEvent, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setErrorMessage } from '../../core/redux/auth/auth-actions'
 
-export const Toast: React.FC = React.memo(() => {
+export const Toast: FC = () => {
 	const message = useSelector((state: RootStateType) => state.auth.error)
 	const dispatch = useDispatch()
 	const styles = useStyles()
 	const [open, setOpen] = useState<boolean>(true)
 
-	const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+	const handleClose = (event?: SyntheticEvent, reason?: string) => {
 		if (reason === 'clickaway') {
 			return
 		}
@@ -34,4 +34,4 @@ export const Toast: React.FC = React.memo(() => {
 			</Snackbar>
 		</Box>
 	)
-})
+}

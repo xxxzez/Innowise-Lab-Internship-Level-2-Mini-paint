@@ -1,6 +1,6 @@
 import { Container, IconButton, Paper, Typography } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
-import React from 'react'
+import { FC, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setErrorMessage } from '../../core/redux/auth/auth-actions'
 import { deleteImage } from '../../core/redux/images/images-actions'
@@ -12,7 +12,7 @@ type ImagePropsType = {
 	image: ImageType,
 }
 
-export const Image: React.FC<ImagePropsType> = React.memo(({ image }) => {
+export const Image: FC<ImagePropsType> = memo(({ image }) => {
 	const styles = useStyles()
 	const user = useSelector((state: RootStateType) => state.auth.user)
 	const error = useSelector((state: RootStateType) => state.auth.error)
@@ -34,7 +34,7 @@ export const Image: React.FC<ImagePropsType> = React.memo(({ image }) => {
 	}
 	return (
 		<Paper elevation={4} className={styles.paper}>
-			{error ? <Toast /> : ''}
+			{error && <Toast />}
 			<Container className={styles.taskItem}>
 				<Container className={styles.buttons}>
 					<IconButton onClick={handleDeleteImage}>
