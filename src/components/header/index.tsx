@@ -8,8 +8,8 @@ import {
 } from '@material-ui/core'
 import { FC } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { signOut } from '../../core/redux/auth/auth-actions'
-import { RootStateType } from '../../core/types/common-types'
+import { signOut } from '@core/redux/auth/auth-actions'
+import { RootStateType } from '@core/types/common-types'
 import { useStyles } from './styles'
 
 export const Header: FC = () => {

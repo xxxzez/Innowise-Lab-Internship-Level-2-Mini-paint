@@ -2,13 +2,13 @@ import { ChangeEvent, FC, FormEvent, useState } from 'react'
 import { Button, Container, TextField, Typography } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import { useStyles } from './styles'
-import { Toast } from '../../utils/toast'
+import { Toast } from '@utils/toast'
 import { useDispatch, useSelector } from 'react-redux'
 import {
 	setErrorMessage,
 	signUpWithEmailAndPassword,
-} from '../../core/redux/auth/auth-actions'
-import { RootStateType } from '../../core/types/common-types'
+} from '@core/redux/auth/auth-actions'
+import { RootStateType } from '@core/types/common-types'
 
 export const SignUpPage: FC = () => {
 	const styles = useStyles()

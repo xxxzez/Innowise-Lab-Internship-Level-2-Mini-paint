@@ -2,10 +2,10 @@ import Snackbar from '@material-ui/core/Snackbar'
 import MuiAlert from '@material-ui/lab/Alert'
 import { Box } from '@material-ui/core'
 import { useStyles } from './style'
-import { RootStateType } from '../../core/types/common-types'
+import { RootStateType } from '@core/types/common-types'
 import { FC, SyntheticEvent, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setErrorMessage } from '../../core/redux/auth/auth-actions'
+import { setErrorMessage } from '@core/redux/auth/auth-actions'
 
 export const Toast: FC = () => {
 	const message = useSelector((state: RootStateType) => state.auth.error)

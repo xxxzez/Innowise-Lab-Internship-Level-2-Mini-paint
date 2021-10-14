@@ -7,9 +7,9 @@ import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked'
 import RemoveIcon from '@material-ui/icons/Remove'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
-import { createImageInstanceInDB } from '../../core/redux/images/images-actions'
-import { storage } from '../../core/firebase/firebase'
-import { MouseDownType, RootStateType } from '../../core/types/common-types'
+import { createImageInstanceInDB } from '@core/redux/images/images-actions'
+import { storage } from '@core/firebase/firebase'
+import { MouseDownType, RootStateType } from '@core/types/common-types'
 import { useStyles } from './styles'
 
 export const Canvas = () => {

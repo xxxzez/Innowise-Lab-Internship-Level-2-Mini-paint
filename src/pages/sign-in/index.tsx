@@ -8,13 +8,13 @@ import {
 	Typography,
 } from '@material-ui/core'
 import { useStyles } from './styles'
-import { Toast } from '../../utils/toast'
+import { Toast } from '@utils/toast'
 import { useDispatch, useSelector } from 'react-redux'
 import {
 	signInWithGoogle,
 	signInWithEmail,
-} from '../../core/redux/auth/auth-actions'
-import { RootStateType } from '../../core/types/common-types'
+} from '@core/redux/auth/auth-actions'
+import { RootStateType } from '@core/types/common-types'
 
 export const SignInPage: FC = () => {
 	const styles = useStyles()
