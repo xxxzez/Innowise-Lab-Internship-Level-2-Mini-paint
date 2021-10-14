@@ -4,6 +4,7 @@
   "homepage": "http://xxxzez.github.io/Innowise-Lab-Internship-Level-2-Mini-paint",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^6.3.0",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@material-ui/core": "^4.12.3",
@@ -60,6 +61,7 @@
   },
   "devDependencies": {
     "@types/react-router-dom": "^5.3.0",
+    "craco-alias": "^3.0.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "gh-pages": "^3.2.3",

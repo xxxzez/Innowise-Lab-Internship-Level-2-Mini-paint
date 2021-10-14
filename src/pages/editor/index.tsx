@@ -1,7 +1,7 @@
 import { Box, Button } from '@material-ui/core'
 import { NavLink } from 'react-router-dom'
-import { Canvas } from '../../components/canvas/canvas'
-import { useStyles } from './editor-page.styles'
+import { Canvas } from '../../components/canvas'
+import { useStyles } from './styles'
 
 export const EditorPage = () => {
 	const styles = useStyles()

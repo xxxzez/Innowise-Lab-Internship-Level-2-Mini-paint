@@ -1,7 +1,7 @@
 import { Box, Button, MenuItem, Paper, Select } from '@material-ui/core'
 import  {  MouseEvent, useEffect, useRef, useState } from 'react'
 import BrushIcon from '@material-ui/icons/Brush'
-import './canvas.styles.ts'
+import './styles.ts'
 import CropLandscapeOutlined from '@material-ui/icons/CropLandscape'
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked'
 import RemoveIcon from '@material-ui/icons/Remove'
@@ -10,7 +10,7 @@ import { useHistory } from 'react-router'
 import { createImageInstanceInDB } from '../../core/redux/images/images-actions'
 import { storage } from '../../core/firebase/firebase'
 import { MouseDownType, RootStateType } from '../../core/types/common-types'
-import { useStyles } from './canvas.styles'
+import { useStyles } from './styles'
 
 export const Canvas = () => {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null)

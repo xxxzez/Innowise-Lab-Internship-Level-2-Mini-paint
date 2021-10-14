@@ -1,8 +1,8 @@
 import { ChangeEvent, FC, FormEvent, useState } from 'react'
 import { Button, Container, TextField, Typography } from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import { useStyles } from './sign-up-page.styles'
-import { Toast } from '../../utils/toast/toast'
+import { useStyles } from './styles'
+import { Toast } from '../../utils/toast'
 import { useDispatch, useSelector } from 'react-redux'
 import {
 	setErrorMessage,

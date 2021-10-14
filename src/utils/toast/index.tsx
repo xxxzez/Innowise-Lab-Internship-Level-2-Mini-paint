@@ -1,7 +1,7 @@
 import Snackbar from '@material-ui/core/Snackbar'
 import MuiAlert from '@material-ui/lab/Alert'
 import { Box } from '@material-ui/core'
-import { useStyles } from './toast.style'
+import { useStyles } from './style'
 import { RootStateType } from '../../core/types/common-types'
 import { FC, SyntheticEvent, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'

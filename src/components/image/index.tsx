@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setErrorMessage } from '../../core/redux/auth/auth-actions'
 import { deleteImage } from '../../core/redux/images/images-actions'
 import { ImageType, RootStateType } from '../../core/types/common-types'
-import { Toast } from '../../utils/toast/toast'
-import { useStyles } from './image.styles'
+import { Toast } from '../../utils/toast'
+import { useStyles } from './styles'
 
 type ImagePropsType = {
 	image: ImageType,

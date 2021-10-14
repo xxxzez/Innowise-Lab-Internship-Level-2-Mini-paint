@@ -7,8 +7,8 @@ import {
 	TextField,
 	Typography,
 } from '@material-ui/core'
-import { useStyles } from './sign-in-page.styles'
-import { Toast } from '../../utils/toast/toast'
+import { useStyles } from './styles'
+import { Toast } from '../../utils/toast'
 import { useDispatch, useSelector } from 'react-redux'
 import {
 	signInWithGoogle,
