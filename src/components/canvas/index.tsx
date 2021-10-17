@@ -169,10 +169,7 @@ export const Canvas = () => {
 	const handleDash = () => setDash( dash === false ? true : false)
 	const handleBlur = () => setBlur( blur === 0 ? 10 : 0)
 	
-	const amountOfWidthOption = []
-	for(let i = 1; i <101; i++){
-		amountOfWidthOption.push(i)
-	}
+	const amountOfWidthOption = Array.from(Array(101).keys()).splice(1)
 
 	return (
 		<Box className="canvas-box">
